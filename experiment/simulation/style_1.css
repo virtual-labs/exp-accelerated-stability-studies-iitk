@@ -1,0 +1,597 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  html,body{
+    width: 100%;
+    height: 100%;
+    /* overflow: hidden; */
+  }
+
+  /* Container is always visible */
+  .container {
+    opacity: 1;
+    display: block !important;
+  }
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #145da0;
+    position: relative;
+    top: 5px;
+    left: 10px;
+    z-index: 100;
+    height: 150px;
+    border-radius: 21px;
+    padding: 10px;
+    width: 100%;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  }
+  .instruction-text {
+    font-size: 80px;
+    font-weight: bold;
+    color: #fff
+  }
+  .language-select select {
+    font-size: 70px;
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    z-index: 999;
+    padding: 8px 12px;
+    border: 2px solid #007bff;
+    border-radius: 20px;
+    background-color: #ffffff;
+    font-weight: bold;
+    color: #007bff;
+    cursor: pointer;
+    outline: none;
+    transition: 0.3s ease;
+  }
+  .bg-img{
+    background-image: url(background_img.png);
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: left bottom;
+    position: absolute;
+    /* left: 10px; */
+    top: 150px;
+    padding: 10px;
+    z-index: 1;
+    border-radius: 21px;
+    margin: 10px;
+    will-change: transform;
+    transform: translateZ(0);
+  }
+
+
+
+   .navigation-buttons {
+    position: fixed;
+    bottom: 80px;
+    right: 80px;
+    display: flex;
+    gap: 15px;
+    z-index: 10;
+  }
+  .navigation-buttons button {
+    padding: 20px 30px;
+    font-size: 50px;
+    font-weight: bold;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    will-change: transform;
+  }
+  /* Hide the next button initially */
+.next-btn {
+    display: none;
+  }
+  .navigation-buttons button:hover {
+    background-color: #388E3C;
+    transform: scale(1.05);
+  }
+  .volumetric-flasks {
+    background-image: url(new_volumetric_flask.png);
+    position: absolute;
+    left: 3500px;
+    top: 1700px;
+    width: 700px;
+    height: 800px;
+    z-index: 1000;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  /* .volumetric-flasks-cap{
+    background-image: url(volumetric_flasks_cap-01.png);
+    position: absolute;
+    left: 00px;
+    top: 1500px;
+    width: 1200px;
+    height: 1700px;
+    z-index: 1000;
+    background-repeat: no-repeat;
+    background-size: contain;
+  } */
+  .salicylic-acid{
+    
+    background-image: url(salicylic_acid_1.png);
+    position: fixed;
+    top: 2200px;
+    left: 2300px;
+    width: 400px;
+    height: 500px;
+    z-index: 9999;
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    display: block;
+   
+  }
+
+  /* Add hover effect to make it clear the acid is clickable */
+  .salicylic-acid:hover {
+    filter: brightness(1.1) drop-shadow(0 0 5px rgba(255, 165, 0, 0.5));
+  }
+
+  /* Salicylic acid on weight machine */
+  .salicylic-acid.on-scale {
+    left: 28%;
+    bottom: 15%;
+    transform: translate(-50%, -50%) scale(0.75);
+    z-index: 1001;
+  }
+  .salicylic-powder{
+    background-image: url(sample_powder.png);
+    position: absolute;
+    left: 3600px; /* Position inside the volumetric flask */
+    top: 2300px; /* Position at the bottom inside the flask */
+    width: 150px; /* Size of the powder in the flask */
+    height: 80px; /* Height of the powder in the flask */
+    z-index: 999; /* Below the flask but above other elements */
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: none; /* Initially hidden, will be shown when acid is poured */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+  .salicylic_acid_powder {
+    background-image: url(salicylic_acid_powder.png);
+    position: absolute;
+    left: 3650px; /* Position inside the flask for falling animation */
+    top: 1800px; /* Start position for falling animation */
+    width: 80px; /* Size for the powder */
+    height: 80px; /* Height for the powder */
+    z-index: 1001; /* Above other elements */
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: none; /* Initially hidden, will be shown during pouring animation */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  /* Animation for falling powder */
+  @keyframes fallPowder {
+    0% {
+
+      height: 80px;
+      width: 80px;
+      transform: translateY(0) scale(1);
+      opacity: 0;
+    }
+    10% {
+
+      height: 80px;
+      width: 80px;
+      opacity: 1;
+    }
+    100% {
+      height: 80px;
+      width: 80px;
+      transform: translateY(300px) scale(0.7); /* Increased fall distance from 250px to 300px */
+      opacity: 0;
+    }
+  }
+
+  .salicylic_acid_powder.falling {
+    animation: fallPowder 1.5s ease-in-out;
+  }
+
+  /* Variations for multiple powder elements - also shifted down */
+  .powder-1 {
+    left: 3050px;
+    top: 60%; /* Was 32% */
+    height: 80px;
+   width: 80px;
+  }
+
+  .powder-2 {
+    left: 3050px;
+    top: 62%; /* Was 30% */
+   height: 80px;
+      width: 80px;
+  }
+
+  .powder-3 {
+    left: 3050px;
+    top: 64%; /* Was 28% */
+    height: 80px;
+      width: 80px;
+  }
+
+
+  .weight-machine{
+    background-image: url(weight_machine.png);
+    position: absolute;
+    left: 900px;
+    top: 1900px;
+    width: 1000px;
+    height: 1000px;
+    z-index: 1000;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  /* Weight machine display */
+  .weight-display {
+    position: absolute;
+    left: 1115px;
+    top: 2315px;
+    width: 7%;
+    height: 4%;
+    background-color: #000;
+    color: #00ff00;
+    font-family: 'Digital-7', monospace;
+    font-size: 1vw; /* Responsive font size */
+    text-align: center;
+    font-weight: 500;
+     /* Responsive line height */
+    border-radius:.5em; /* Responsive border radius */
+    z-index: 1001;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+  .weight-power-btn {
+    position: absolute;
+    left: 970px;
+    top: 2330px;
+    width: 90px;
+    height: 90px;
+     /* Make it square using padding-bottom */
+    background-color: #ff0000;
+    border-radius:50%;
+    z-index: 1002;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border: 0.2vw solid #333; /* Responsive border */
+    display: none;
+  }
+
+  .weight-power-btn.on {
+    background-color: #00ff00;
+  }
+  .water-1{
+    background-image: url(water_1-01.png);
+    height: 500px;
+    width: 500px;
+    position: absolute;
+    left: 2950px; /* Adjusted to align with the flask */
+    top: 1900px; /* Adjusted to align with the flask */
+    z-index: 999;
+    background-repeat: no-repeat;
+    background-size: contain;
+    opacity: 0;
+    transition: opacity 1s ease;
+    display: none;
+  }
+  .distilled-water{
+    background-image: url(distilled_water-01.png);
+    position: absolute;
+    left: 4500px;
+    top: 1100px;
+    width: 1400px;
+    height: 1600px;
+    z-index: 1000;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: none;
+    transform-origin: bottom center;
+    cursor: pointer;
+    /* Remove transition to avoid conflicts with GSAP animations */
+  }
+  /* This class is kept for backwards compatibility but we're using GSAP for animations now */
+  .distilled-water.pouring {
+    transform: translateY(-50px) rotate(-50deg);
+  }
+.measuring-cylinder{
+  background-image: url(measuring_cylinder_hcl.png);
+  position: absolute;
+  left: 1340px;
+  top: 1700px;
+  width: 1200px;
+  height: 800px;
+  z-index: 1000;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: none;
+}
+.beaker{
+  background-image: url(beaker_1.png);
+  position: absolute;
+  left: 2800px;
+  top: 2000px;
+  width: 500px;
+  height: 500px;
+  z-index: 1000;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: none;
+}
+
+.hcl {
+  background-image: url(hcl.png);
+  position: absolute;
+  left: 3500px;
+  top: 1800px;
+  width: 600px;
+  height: 800px;
+  z-index: 1000;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: none;
+}
+
+/* Step 3 elements */
+.standard-salicylic-acid {
+  background-image: url(standard_sylicylic_acid.png);
+  position: absolute;
+  left: 2300px;
+  top: 1500px;
+  width: 1200px;
+  height: 1400px;
+  z-index: 1000;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: none;
+}
+
+.pipette {
+  background-image: url(pipette-01.png);
+  position: absolute;
+  left: 2900px;
+  top: 1900px;
+  width: 900px;
+  height: 1200px;
+  z-index: 1000;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: none;
+  rotate: 90deg;
+}
+
+.test-tubes {
+  background-image: url(test_tubes.png);
+  position: absolute;
+  left: 1500px;
+  top: 1800px;
+  width: 800px;
+  height: 600px;
+  z-index: 1000;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: none;
+}
+
+.test-tubes-rack {
+  background-image: url(testtube_rack-01.png);
+  position: absolute;
+  left: 800px;
+  top: 1300px;
+  width: 1300px;
+  height: 1900px;
+  z-index: 1000;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: none;
+}
+/* Step 4 elements */
+.ferric-chloride {
+  background-image: url(ferric_chloride.png);
+  position: absolute;
+  left: 2200px;
+  top: 1500px;
+  width: 800px;
+  height: 1000px;
+  z-index: 1000;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: none;
+}
+
+.testtube-rack-dilutions {
+  background-image: url(testtube_rack_dilutions.png);
+  position: absolute;
+  left: 3400px;
+  top: 1900px;
+  width: 800px;
+  height: 600px;
+  z-index: 1000;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: none;
+}
+
+.colorimeter {
+  background-image: url(colorimeter-01.png);
+  position: absolute;
+  left: 1100px;
+  top: 1800px;
+  width: 1600px;
+  height: 1400px;
+  z-index: 1000;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: none;
+}
+
+.beaker-step4 {
+  background-image: url(beaker_1.png);
+  position: absolute;
+  left: 2300px;
+  top: 2000px;
+  width: 500px;
+  height: 500px;
+  z-index: 1000;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: none;
+}
+
+/* Step 5 elements */
+.three-tube-rack {
+  background-image: url(3_tube_rack-01.png);
+  position: absolute;
+  left: 1000px;
+  top: 1800px;
+  width: 1200px;
+  height: 1100px;
+  z-index: 1000;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: none;
+}
+
+.water-bath {
+  background-image: url('water bath1-01.png');
+  position: absolute;
+  left: 3100px;
+  top: 1400px;
+  width: 1800px;
+  height: 1600px;
+  z-index: 1000;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: none;
+}
+
+.beaker-step5 {
+  background-image: url(beaker_1.png);
+  position: absolute;
+  left: 2300px;
+  top: 2000px;
+  width: 500px;
+  height: 500px;
+  z-index: 1000;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: none;
+}
+/* End of Step 5 elements */
+
+/* Step 6 elements */
+.colorimeter-step6 {
+  background-image: url(colorimeter-01.png);
+  position: absolute;
+  left: 1500px;
+  top: 1700px;
+  width: 1000px;
+  height: 800px;
+  z-index: 1000;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: none;
+}
+
+.conical-flask {
+  background-image: url('conical flask-01.png');
+  position: absolute;
+  left: 3000px;
+  top: 1700px;
+  width: 800px;
+  height: 800px;
+  z-index: 1000;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: none;
+}
+
+.heating-mantle {
+  background-image: url('Heating Mantle-01.png');
+  position: absolute;
+  left: 2500px;
+  top: 1700px;
+  width: 800px;
+  height: 800px;
+  z-index: 1000;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: none;
+}
+
+/* Water drops styling */
+.water-drop {
+  background-image: url(drop.png);
+  position: absolute;
+  left: 2000px;
+  width: 30px;
+  height:55px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0;
+  display: none;
+  z-index: 1001;
+  pointer-events: none;
+}
+
+@keyframes dropFall {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(300px);
+    opacity: 0;
+  }
+}
+
+.water-drop.falling {
+  left: 2000px;
+  animation: dropFall 1.5s linear forwards;
+  display: block !important;
+  opacity: 1;
+}
+
+/* Animation for measuring cylinder movement */
+@keyframes moveCylinder {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  40% {
+    transform: translate(80px, -60px) rotate(90deg);
+  }
+  70% {
+    transform: translate(80px, -60px) rotate(90deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+.measuring-cylinder.animating {
+  animation: moveCylinder 2.1s ease-in-out;
+  transform-origin: center center;
+}

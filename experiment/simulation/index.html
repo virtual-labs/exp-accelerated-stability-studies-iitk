@@ -1,13 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<!-- Add CSS at the head of HTML file -->
-    <link rel="stylesheet" href="./css/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>virtual Lab</title>
+    <link rel="stylesheet" href="style_1.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="script.js"></script>
 </head>
 <body>
-		<!-- Your code goes here-->
 
-	<!-- Add JS at the bottom of HTML file --> 
-        <script src="./js/main.js"></script>
+
+    <div class="container">
+        <!-- top container -->
+        <div class="navbar">
+            <div class="instruction-text">
+              Instruction:- Please read the instructions carefully before proceeding.
+            </div>
+            <div class="language-select">
+              <select>
+                    <option value="en">English</option>
+                    <option value="hi">हिंदी</option>
+                    <!-- <option value="bn">বাংলা</option>
+                    <option value="gu">ગુજરાતી</option>
+                    <option value="ml">മലയാളം</option> -->
+              </select>
+            </div>
+          </div>
+
+          <!-- main container -->
+          <div class="bg-img">
+                   <!-- step 1 -->
+            <div class="volumetric-flasks"></div>
+            <div class="volumetric-flasks-cap"></div>
+            <!-- <div class="spatula"></div> -->
+            <div class="weight-machine"></div>
+            <div class="weight-display">0.00 g</div>
+            <div class="weight-power-btn"></div>
+            <div class="salicylic-acid" onclick="handleSalicylicAcidClick()"></div>
+            <div class="salicylic-powder"></div>
+            <!-- Multiple powder elements for a more realistic falling effect -->
+            <div class="salicylic_acid_powder powder-1"></div>
+            <div class="salicylic_acid_powder powder-2"></div>
+            <div class="salicylic_acid_powder powder-3"></div>
+
+            <div class="water-1"></div>
+            <div class="distilled-water" onclick="distilledWater()"></div>
+            <div class="water-drop "></div>
+            <div class="water-drop "></div>
+            <div class="water-drop "></div>
+
+            <!-- step 2 -->
+            <div class="measuring-cylinder" onclick="measuringCylinder()"></div>
+            <div class="beaker"></div>
+            <div class="hcl"></div>
+
+            <!-- step 3 -->
+            <div class="standard-salicylic-acid"></div>
+            <div class="pipette"></div>
+            <div class="test-tubes"></div>
+            <div class="test-tubes-rack"></div>
+
+            <!-- step 4 -->
+            <div class="ferric-chloride"></div>
+            <div class="testtube-rack-dilutions"></div>
+            <div class="colorimeter"></div>
+            <div class="beaker-step4"></div>
+
+            <!-- step 5 -->
+            <div class="three-tube-rack"></div>
+            <div class="water-bath"></div>
+            <div class="beaker-step5"></div>
+
+            <!-- step 6 -->
+            <div class="colorimeter-step6"></div>
+            <div class="conical-flask"></div>
+            <div class="heating-mantle"></div>
+
+          </div>
+
+    </div>
+    <!-- Bottom -->
+    <div class="navigation-buttons">
+        <button class="start-btn">Start</button>
+        <button class="next-btn">Next</button>
+      </div>
+
 </body>
 </html>
