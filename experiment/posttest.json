@@ -2,35 +2,86 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
-      "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+      "question": "In the calibration curve, the relationship between absorbance and concentration of salicylic acid is:",
+    "answers": {
+      "a": "Linear, following Beer-Lambert law",
+      "b": "Exponential",
+      "c": "Random",
+      "d": "Parabolic"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Explanation",
+        "b": "Explanation",
+        "c": "Explanation",
+        "d": "Explanation"
       },
       "correctAnswer": "a",
       "difficulty": "beginner"
     },
-    {
-      "question": "This is a Sample Question 2?",
-      "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+       {
+      "question": "As temperature increases, the rate constant (k) of aspirin degradation:",
+    "answers": {
+      "a": "Decreases",
+      "b": "Remains unchanged",
+      "c": "Increases",
+      "d": "Becomes zero"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Explanation",
+        "b": "Explanation",
+        "c": "Explanation",
+        "d": "Explanation"
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+        {
+      "question": "The straight line obtained in the Arrhenius plot confirms that the reaction:",
+    "answers": {
+      "a": "Is reversible",
+      "b": "Follows first-order kinetics",
+      "c": "Is catalyzed by ferric ions",
+      "d": "Is independent of temperature"
+      },
+      "explanations": {
+        "a": "Explanation",
+        "b": "Explanation",
+        "c": "Explanation",
+        "d": "Explanation"
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+        {
+      "question": "Shelf life (t₉₀) of aspirin is the time required for:",
+    "answers": {
+      "a": "50% of the drug to decompose",
+      "b": "10% of the drug to decompose",
+      "c": "90% of the drug to decompose",
+      "d": "25% of the drug to decompose"
+      },
+      "explanations": {
+        "a": "Explanation",
+        "b": "Explanation",
+        "c": "Explanation",
+        "d": "Explanation"
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+        {
+      "question": "If the activation energy (Ea) is high, it indicates that:",
+    "answers": {
+      "a": "The reaction is very fast",
+      "b": "The drug is thermally unstable",
+      "c": "The reaction rate increases significantly with temperature",
+      "d": "The reaction is independent of temperature"
+      },
+      "explanations": {
+        "a": "Explanation",
+        "b": "Explanation",
+        "c": "Explanation",
+        "d": "Explanation"
       },
       "correctAnswer": "c",
       "difficulty": "beginner"
