@@ -1,4 +1,4 @@
-<b>Objectives: </b><br>
+<!-- <b>Objectives: </b><br>
 ● To prepare a standard solution of salicylic acid.<br> 
 ● To hydrolyze aspirin under different temperature conditions.<br> 
 ● To measure absorbance using spectrophotometry.<br>
@@ -7,7 +7,7 @@
 ● To estimate the shelf-life of aspirin at room temperature.<br>
 
 
-<b>Theory: </b><br> 
+<b>Theory: </b><br> -->
 Aspirin (acetylsalicylic acid) undergoes hydrolysis in the presence of moisture or heat to yield salicylic acid and acetic acid. The reaction is accelerated at higher temperatures and follows first-order kinetics, making it suitable for accelerated stability testing.<br> 
 
 The concentration of salicylic acid formed can be determined spectrophotometrically using ferric nitrate, which reacts with the phenolic group of salicylic acid to produce a purple complex measurable at 540–547 nm.<br>
