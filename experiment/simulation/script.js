@@ -1,849 +1,1161 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Language translations
-    const translations = {
-        'en': {
-            'instruction_initial': 'Please read the instructions carefully before proceeding.',
-            'instruction_step1': 'Step 1: Dissolve 100 mg of salicylic acid in 100 ml of distilled water.',
-            'instruction_step2': 'Step 2: Mix 8.5 ml concentrated HCl with distilled water to make 100 ml.',
-            'instruction_step3': 'Step 3: Prepare 5 test tubes with concentrations ranging from 0.02 mg/ml to 0.10 mg/ml using standard solution.',
-            'instruction_step4': 'Step 4: Add ferric chloride to each test tube and observe the color change.',
-            'instruction_step5': 'Step 5: Heat the solutions in a water bath and observe the changes.',
-            'instruction_step6': 'Step 6: Record the absorbance values and plot a calibration curve.',
+let on = document.querySelector("#on")
+let tare = document.querySelector("#tare")
+let reading = document.querySelector("#reading")
+let spatula = document.querySelector("#spatula")
+let cap = document.querySelector("#boxcap")
 
-            'start': 'Start',
-            'next': 'Next'
-        },
-        'hi': {
-            'instruction_initial': 'कृपया आगे बढ़ने से पहले निर्देशों को ध्यान से पढ़ें।',
-            'instruction_step1': 'चरण 1: 100 मिलीग्राम सैलिसिलिक एसिड को 100 मिली आसुत जल में घोलें।',
-            'instruction_step2': 'चरण 2: 8.5 मिली सांद्र HCl को आसुत जल के साथ मिलाकर 100 मिली बनाएं।',
-            'instruction_step3': 'चरण 3: मानक समाधान का उपयोग करके 0.02 मिलीग्राम/मिली से 0.10 मिलीग्राम/मिली तक की सांद्रता वाली 5 परीक्षण नलिकाएँ तैयार करें।',
-            'instruction_step4': 'चरण 4: प्रत्येक परीक्षण नलिका में फेरिक क्लोराइड डालें और रंग परिवर्तन का निरीक्षण करें।',
-            'instruction_step5': 'चरण 5: समाधानों को वॉटर बाथ में गरम करें और परिवर्तनों का निरीक्षण करें।',
-            'instruction_step6': 'चरण 6: अवशोषण मान दर्ज करें और अंशांकन वक्र बनाएं।',
+let petri = document.querySelector("#petri")
+let powder = document.querySelector("#powder")
+let flask = document.querySelector("#volumetricflasks")
+let bottel = document.querySelector("#waterbottel1")
+let next = document.querySelector("#nextBtn")
+let start = document.querySelector("#startBtn")
 
-            'start': 'प्रारंभ करें',
-            'next': 'अगला'
-        }
-    };
 
-    // Set default language to English
-    let currentLanguage = 'en';
 
-    // Update all text content based on selected language
-    function updateLanguage() {
-        const lang = translations[currentLanguage];
+let petriselector = petri;
+let sample = powder
+let powderleft = "48.8%"
 
-        // Update instruction text
-        document.querySelector('.instruction-text').textContent = lang.instruction_initial;
+let f = 1;
 
 
 
-        // Update navigation buttons
-        document.querySelector('.start-btn').textContent = lang.start;
-        document.querySelector('.next-btn').textContent = lang.next;
-    }
+function movepetri(){
+  if(petriselector == petri){
+    petriplace()
+    
+  }
+}
 
-    // Add event listener to language dropdown
-    document.querySelector('.language-select select').addEventListener('change', function() {
-        currentLanguage = this.value;
-        updateLanguage();
-    });
+stp2.style.display = "none"
+stp3.style.display = "none"
+stp4.style.display = "none"
 
-    // Initialize with default language (English)
-    updateLanguage();
-
-    // Variables to track salicylic acid state
-    let salicylicAcidOnScale = false;
-    let salicylicAcidWeighed = false;
-    let salicylicAcidInFlask = false;
-
-    // Initially hide all apparatus elements
-    const apparatusElements = [
-        // Step 1 elements
-        '.volumetric-flasks',
-        '.volumetric-flasks-cap',
-        '.salicylic-acid',
-        '.distilled-water',
-        '.water-1',
-        '.drop',
-        '.weight-machine',
-        '.weight-display',
-        '.weight-power-btn',
-        '.salicylic-powder',
-        '.salicylic_acid_powder',
-
-        // Step 2 elements
-        '.measuring-cylinder',
-        '.beaker',
-        '.hcl',
-
-        // Step 3 elements
-        '.standard-salicylic-acid',
-        '.pipette',
-        '.test-tubes',
-        '.test-tubes-rack',
-
-        // Step 4 elements
-        '.ferric-chloride',
-        '.testtube-rack-dilutions',
-        '.colorimeter',
-        '.beaker-step4',
-
-        // Step 5 elements
-        '.three-tube-rack',
-        '.water-bath',
-        '.beaker-step5',
-
-        // Step 6 elements
-        '.colorimeter-step6',
-        '.conical-flask',
-        '.heating-mantle'
-    ];
-
-    apparatusElements.forEach(selector => {
-        const elements = document.querySelectorAll(selector);
-        elements.forEach(element => {
-            element.style.display = 'none';
-        });
-    });
-
-    // Hide the next button initially
-    document.querySelector('.next-btn').style.display = 'none';
-
-
-
-    // Start button functionality
-    document.querySelector('.start-btn').addEventListener('click', function() {
-        // Hide the start button
-        this.style.display = 'none';
-
-        // Show the next button
-        document.querySelector('.next-btn').style.display = 'block';
-
-        // Update instruction text to show step 1
-        const instructionText = document.querySelector('.instruction-text');
-        instructionText.textContent = translations[currentLanguage].instruction_step1 || translations['en'].instruction_step1;
-
-        // Define the objects to show with animation
-        const objectsToShow = [
-            {
-                selector: '.volumetric-flasks',
-                delay: 100
-            },
-            {
-                selector: '.volumetric-flasks-cap',
-                delay: 100
-            },
-            {
-                selector: '.salicylic-acid',
-                delay: 100
-            },
-            {
-                selector: '.weight-machine',
-                delay: 100
-            },
-            {
-                selector: '.weight-power-btn',
-                delay: 100
-            },
-            {
-                selector: '.distilled-water',
-                delay: 100
-            }
-        ];
-
-        // Add a variable to track if we've added the click event to the acid image
-        let acidImageClickAdded = false;
-
-        // Show each object with animation after its delay
-        objectsToShow.forEach(obj => {
-            setTimeout(() => {
-                const element = document.querySelector(obj.selector);
-                if (element) {
-                    element.style.display = 'block';
-                    element.style.opacity = '0';
-
-                    // Add click event to the salicylic acid image
-                    if (obj.selector === '.salicylic-acid' && !acidImageClickAdded) {
-                        element.style.cursor = 'pointer'; // Change cursor to indicate it's clickable
-                        let clickCount = 0;
-                        element.addEventListener('click', function() {
-                            clickCount++;
-
-                            if (clickCount === 1) {
-                                // First click: Move to weight machine
-                                element.style.transition = 'all 2s ease-in-out';
-                                element.style.left = '22%';
-                                element.style.bottom = '18%';
-                                element.style.transform = 'translate(-50%, -50%) scale(0.8)';
-
-                                // Update weight display after 2.5 seconds if machine is on
-                                const weightDisplay = document.querySelector('.weight-display');
-                                const weightBtn = document.querySelector('.weight-power-btn');
-                                if (weightBtn && weightBtn.classList.contains('on') && weightDisplay) {
-                                    setTimeout(() => {
-                                        weightDisplay.textContent = '100.0 ';
-                                    }, 2500);
-                                }
-                            } else if (clickCount === 2) {
-                                // Second click: First lift up, then move right
-
-                                // Step 1: Lift up by 1000px
-                                element.style.transition = 'all 1s ease-in-out';
-                                element.style.transform = 'translate(-50%, -50%) scale(0.8) translateY(-1000px)';
-
-                                // Step 2: Move to volumetric flask head and tilt 50 degrees
-                                setTimeout(() => {
-                                    element.style.transition = 'all 2s ease-in-out';
-                                    element.style.left = 'calc(62% - 530px)';
-                                    element.style.top = '1620px';
-                                    element.style.bottom = 'auto';
-                                    element.style.transform = 'translate(-50%, -50%) scale(0.8) rotate(50deg)';
-
-                                    // Show falling powder after acid reaches flask
-                                    setTimeout(() => {
-                                        const powderElements = document.querySelectorAll('.salicylic_acid_powder');
-                                        powderElements.forEach((powder, index) => {
-                                            setTimeout(() => {
-                                                powder.style.display = 'block';
-                                                powder.classList.add('falling');
-
-                                                // Hide powder after animation
-                                                setTimeout(() => {
-                                                    powder.style.display = 'none';
-                                                    powder.classList.remove('falling');
-                                                }, 1500);
-                                            }, index * 200);
-                                        });
-
-                                        // Show sample powder in flask after falling animation
-                                        setTimeout(() => {
-                                            const samplePowder = document.querySelector('.salicylic-powder');
-                                            if (samplePowder) {
-                                                samplePowder.style.display = 'block';
-                                                samplePowder.style.opacity = '1';
-                                            }
-                                        }, 2000);
-                                    }, 1000);
-                                }, 1000);
-
-                                // Reset weight display to 00.0 mg after acid is removed
-                                const weightDisplay = document.querySelector('.weight-display');
-                                const weightBtn = document.querySelector('.weight-power-btn');
-                                if (weightBtn && weightBtn.classList.contains('on') && weightDisplay) {
-                                    setTimeout(() => {
-                                        weightDisplay.textContent = '00.0 ';
-                                    }, 500);
-                                }
-                            }
-                        });
-                        acidImageClickAdded = true;
-                    }
-
-                    // Add click event to the distilled water
-                    if (obj.selector === '.distilled-water') {
-                        element.style.cursor = 'pointer';
-                        element.addEventListener('click', distilledWater);
-                    }
-
-                    // Fade in animation
-                    setTimeout(() => {
-                        element.style.transition = 'opacity 0.5s ease-in-out';
-                        element.style.opacity = '1';
-                    }, 50);
-                }
-            }, obj.delay);
-        });
-
-
-
-            // Add click event to the weight machine power button
-            const weightPowerBtn = document.querySelector('.weight-power-btn');
-            if (weightPowerBtn) {
-                weightPowerBtn.addEventListener('click', function() {
-                    // Toggle the power button state
-                    this.classList.toggle('on');
-
-                    // Get the weight display
-                    const weightDisplay = document.querySelector('.weight-display');
-
-                    if (this.classList.contains('on')) {
-                        // Turn on the weight machine - display is initially blank
-                        weightDisplay.style.display = 'block';
-
-                        // Fade in animation
-                        setTimeout(() => {
-                            weightDisplay.style.opacity = '1';
-
-                            // Display is blank initially or shows 100.0 mg if salicylic acid is on the scale
-                            if (salicylicAcidOnScale) {
-                                weightDisplay.textContent = '100.0 ';
-                            } else {
-                                weightDisplay.textContent = '00.0 ';
-                            }
-
-                            // Show a message that the weight machine is on
-                            const instructionText = document.querySelector('.instruction-text');
-                            const originalText = instructionText.textContent;
-
-                            const weightOnMessages = {
-                                'en': 'Weight machine is now on. Next, click on the salicylic acid to place it on the scale.',
-                                'hi': 'वजन मशीन अब चालू है। अब, सैलिसिलिक एसिड पर क्लिक करके इसे तराजू पर रखें।'
-                            };
-
-                            instructionText.textContent = weightOnMessages[currentLanguage] || weightOnMessages['en'];
-
-                            // Reset the instruction text after 5 seconds
-                            setTimeout(() => {
-                                instructionText.textContent = originalText;
-                            }, 5000);
-                        }, 50);
-                    } else {
-                        // Turn off the weight machine - display stays visible but dims
-                        weightDisplay.style.opacity = '0.3';
-
-                        // Show a message that the weight machine is off
-                        const instructionText = document.querySelector('.instruction-text');
-                        const originalText = instructionText.textContent;
-
-                        const weightOffMessages = {
-                            'en': 'Weight machine is now off.',
-                            'hi': 'वजन मशीन अब बंद है।'
-                        };
-
-                        instructionText.textContent = weightOffMessages[currentLanguage] || weightOffMessages['en'];
-
-                        // Reset the instruction text after 3 seconds
-                        setTimeout(() => {
-                            instructionText.textContent = originalText;
-                        }, 3000);
-                    }
-                });
-            }
-        }, 2000); // Enable buttons after all objects are shown
-    });
-
-    // Variable to track current step
-    let currentStep = 1;
-
-    // Function to hide all elements from a specific step
-    function hideStepElements(stepNumber) {
-        let elementsToHide = [];
-
-        // Define elements to hide for each step
-        switch(stepNumber) {
-            case 1:
-                elementsToHide = [
-                    '.volumetric-flasks',
-                    '.volumetric-flasks-cap',
-                    '.weight-machine',
-                    '.weight-display',
-                    '.weight-power-btn',
-                    '.salicylic-acid',
-                    '.salicylic-powder',
-                    '.salicylic_acid_powder',
-                    '.water-1',
-                    '.drop'
-                ];
-                break;
-            case 2:
-                elementsToHide = [
-                    '.measuring-cylinder',
-                    '.beaker',
-                    '.distilled-water',
-                    '.hcl'
-                ];
-                break;
-            case 3:
-                elementsToHide = [
-                    '.standard-salicylic-acid',
-                    '.pipette',
-                    '.test-tubes',
-                    '.test-tubes-rack',
-                    '.distilled-water',
-                    '.drop'
-                ];
-                break;
-            case 4:
-                elementsToHide = [
-                    '.ferric-chloride',
-                    '.testtube-rack-dilutions',
-                    '.colorimeter',
-                    '.beaker-step4'
-                ];
-                break;
-            case 5:
-                elementsToHide = [
-                    '.three-tube-rack',
-                    '.water-bath',
-                    '.beaker-step5'
-                ];
-                break;
-            case 6:
-                elementsToHide = [
-                    '.colorimeter-step6',
-                    '.conical-flask',
-                    '.heating-mantle'
-                ];
-                break;
-            default:
-                break;
-        }
-
-        // Hide each element with a fade-out animation
-        elementsToHide.forEach(selector => {
-            const elements = document.querySelectorAll(selector);
-            elements.forEach(element => {
-                if (element) {
-                    element.style.opacity = '0';
-                    setTimeout(() => {
-                        element.style.display = 'none';
-                    }, 500);
-                }
-            });
-        });
-
-
-    }
-
-    // Next button functionality
-    document.querySelector('.next-btn').addEventListener('click', function() {
-        // Hide elements from current step
-        hideStepElements(currentStep);
-
-        // Increment the current step
-        currentStep++;
-
-        // Get the instruction text element
-        const instructionText = document.querySelector('.instruction-text');
-
-        // Show the appropriate step content based on currentStep
-        if (currentStep <= 6) {
-            // Update instruction text for the current step
-            instructionText.textContent = translations[currentLanguage][`instruction_step${currentStep}`] ||
-                                         translations['en'][`instruction_step${currentStep}`];
-
-            // Show the appropriate elements for the current step
-            showStepElements(currentStep);
-        } else {
-            // We're at the end of the experiment
-            // Show completion message
-            const completionMessages = {
-                'en': 'Experiment completed successfully!',
-                'hi': 'प्रयोग सफलतापूर्वक पूरा हुआ!'
-            };
-
-            instructionText.textContent = completionMessages[currentLanguage] || completionMessages['en'];
-
-            // Hide the next button
-            this.style.display = 'none';
-        }
-    });
-
-    // Function to show elements for a specific step
-    function showStepElements(stepNumber) {
-        let elementsToShow = [];
-
-        // Define elements to show for each step
-        switch(stepNumber) {
-            case 1:
-                elementsToShow = [
-                    {selector: '.volumetric-flasks', delay: 100},
-                    {selector: '.volumetric-flasks-cap', delay: 300},
-                    {selector: '.salicylic-acid', delay: 500},
-                    {selector: '.weight-machine', delay: 700},
-                    {selector: '.weight-power-btn', delay: 900},
-                    {selector: '.distilled-water', delay: 1100}
-                ];
-                break;
-            case 2:
-                elementsToShow = [
-                    {selector: '.measuring-cylinder', delay: 100},
-                    {selector: '.beaker', delay: 300},
-                    {selector: '.hcl', delay: 500},
-                    {selector: '.distilled-water', delay: 700}
-                ];
-                break;
-            case 3:
-                elementsToShow = [
-                    {selector: '.standard-salicylic-acid', delay: 100},
-                    {selector: '.pipette', delay: 300},
-                    {selector: '.test-tubes', delay: 500},
-                    {selector: '.test-tubes-rack', delay: 700},
-                    {selector: '.distilled-water', delay: 900}
-                ];
-                break;
-            case 4:
-                elementsToShow = [
-                    {selector: '.ferric-chloride', delay: 100},
-                    {selector: '.testtube-rack-dilutions', delay: 300},
-                    {selector: '.colorimeter', delay: 500},
-                    {selector: '.beaker-step4', delay: 700}
-                ];
-                break;
-            case 5:
-                elementsToShow = [
-                    {selector: '.three-tube-rack', delay: 100},
-                    {selector: '.water-bath', delay: 300},
-                    {selector: '.beaker-step5', delay: 500}
-                ];
-                break;
-            case 6:
-                elementsToShow = [
-                    {selector: '.colorimeter-step6', delay: 100},
-                    {selector: '.conical-flask', delay: 300},
-                    {selector: '.heating-mantle', delay: 500}
-                ];
-                break;
-            default:
-                break;
-        }
-
-        // Show each element with animation
-        elementsToShow.forEach(obj => {
-            setTimeout(() => {
-                const element = document.querySelector(obj.selector);
-                if (element) {
-                    element.style.display = 'block';
-                    element.style.opacity = '0';
-
-                    // Fade in animation
-                    setTimeout(() => {
-                        element.style.transition = 'opacity 0.5s ease-in-out';
-                        element.style.opacity = '1';
-                    }, 50);
-                } else {
-                    console.log(`Element not found: ${obj.selector}`);
-                }
-            }, obj.delay);
-        });
-
-
-    }
-
-
-
-    // Function to handle distilled water bottle click
-    function handleDistilledWaterClick() {
-        // Only proceed if the flask is visible
-        const flaskElement = document.querySelector('.volumetric-flasks');
-        if (flaskElement.style.display === 'block') {
-            // Get the water element and drops
-            const waterElement = document.querySelector('.water-1');
-            const drops = document.querySelectorAll('.water-drop');
-
-            console.log("Water element:", waterElement); // Debug log
-            console.log("Drops:", drops.length); // Debug log
-
-            // Make sure the water element exists
-            if (!waterElement) {
-                console.error("Water element not found!");
-                return;
-            }
-
-            // Start the animation sequence
-            // 1. Show and animate the drops falling
-            if (drops.length > 0) {
-                drops.forEach((drop, index) => {
-                    setTimeout(() => {
-                        // Make sure the drop is visible
-                        drop.style.display = 'block';
-                        drop.style.opacity = '1';
-
-                        // Add the falling animation class
-                        drop.classList.add('falling');
-
-                        // Remove the animation class after it completes
-                        setTimeout(() => {
-                            drop.classList.remove('falling');
-                            drop.style.opacity = '0';
-                            drop.style.display = 'none';
-
-                            // If this is the last drop, show the water_1-01 image
-                            if (index === drops.length - 1) {
-                                // Show the water in the flask with a fade-in effect
-                                setTimeout(() => {
-                                    console.log("Showing water element"); // Debug log
-                                    waterElement.style.display = 'block';
-                                    setTimeout(() => {
-                                        waterElement.style.opacity = '1';
-
-                                        // Show a message that water has been added
-                                        const instructionText = document.querySelector('.instruction-text');
-                                        const originalText = instructionText.textContent;
-
-                                        // Create water added message in the current language
-                                        const waterAddedMessages = {
-                                            'en': 'Distilled water has been added to the flask.',
-                                            'hi': 'आसुत जल फ्लास्क में डाला गया है।'
-                                        };
-
-                                        instructionText.textContent = waterAddedMessages[currentLanguage] || waterAddedMessages['en'];
-
-                                        // Reset the instruction text after 3 seconds
-                                        setTimeout(() => {
-                                            instructionText.textContent = originalText;
-                                        }, 3000);
-                                    }, 100);
-                                }, 200); // Small delay after the last drop animation completes
-                            }
-                        }, 1500); // Match the animation duration
-                    }, index * 300); // Stagger the drops
-                });
-            } else {
-                // If no drops are found, still show the water element
-                console.log("No drops found, showing water directly"); // Debug log
-                setTimeout(() => {
-                    waterElement.style.display = 'block';
-                    setTimeout(() => {
-                        waterElement.style.opacity = '1';
-
-                        // Show a message that water has been added
-                        const instructionText = document.querySelector('.instruction-text');
-                        const originalText = instructionText.textContent;
-
-                        // Create water added message in the current language
-                        const waterAddedMessages = {
-                            'en': 'Distilled water has been added to the flask.',
-                            'hi': 'आसुत जल फ्लास्क में डाला गया है।'
-                        };
-
-                        instructionText.textContent = waterAddedMessages[currentLanguage] || waterAddedMessages['en'];
-
-                        // Reset the instruction text after 3 seconds
-                        setTimeout(() => {
-                            instructionText.textContent = originalText;
-                        }, 3000);
-                    }, 100);
-                }, 500);
-            }
-        } else {
-            // If the flask is not visible, show a message
-            const instructionText = document.querySelector('.instruction-text');
-            const originalText = instructionText.textContent;
-
-            const flaskNeededMessages = {
-                'en': 'Please place the volumetric flask first.',
-                'hi': 'कृपया पहले आयतनमापी फ्लास्क रखें।'
-            };
-
-            instructionText.textContent = flaskNeededMessages[currentLanguage] || flaskNeededMessages['en'];
-
-            // Reset the instruction text after 3 seconds
-            setTimeout(() => {
-                instructionText.textContent = originalText;
-            }, 3000);
-        }
-    }
-
-    // Function to handle salicylic acid click
-    function handleSalicylicAcidClick() {
-        // Only proceed if the weight machine is visible
-        const weightMachine = document.querySelector('.weight-machine');
-        const weightPowerBtn = document.querySelector('.weight-power-btn');
-        const weightDisplay = document.querySelector('.weight-display');
-        const salicylicAcidElement = document.querySelector('.salicylic-acid');
-
-        console.log("Salicylic acid clicked");
+function startExperiment(){
+    if(f==1){
+        f=2
+        // console.log("hello");
         
-        // Check if the acid is already on scale
-        if (!salicylicAcidOnScale) {
-            console.log("Starting animation");
-            
-            // Target position (center of the weight machine)
-            const endLeft = 28; // Target horizontal position (percentage)
-            const endBottom = 15; // Target vertical position (percentage)
-            
-            // Create a timeline for sequential animation
-            const tl = gsap.timeline({
-                onComplete: function() {
-                    salicylicAcidElement.classList.add('on-scale');
-                    salicylicAcidOnScale = true;
-                    
-                    // Update weight display
-                    if (weightPowerBtn.classList.contains('on')) {
-                        weightDisplay.textContent = '100.0 ';
+        
+        machineName.style.opacity="100"
+        petriName.style.opacity="100"
+        spatulaName.style.opacity="100"
+        salicylicacidName.style.opacity="100"
+        volumetricflaskName.style.opacity="100"
+        DistilledwaterName1.style.opacity="100"
+        startBtn.style.visibility="hidden"
+        text.innerText="Turn on the button of the weighing machine."
+            // setTimeout(function(){
+            //     machineName.style.opacity="0"
+            // },1000)
+    } 
+}
+
+
+function on1(){
+    if(f==2){
+        f=3
+        
+        reading.style.opacity="100%"
+            machineName.style.opacity="0"
+            petriName.style.opacity="0"
+            spatulaName.style.opacity="0"
+            salicylicacidName.style.opacity="0"
+            volumetricflaskName.style.opacity="0"
+            DistilledwaterName1.style.opacity="0"
+            startBtn.style.visibility="hidden"
+            text.innerText="Click on the petri dish."
+        
+    }
+
+}
+
+
+
+function tare1(){
+    if(f==5){
+      f=6
+        reading.innerText="00.00"
+        text.innerText="Click on the Tare button."
+        text.innerText="Click on the cap of the salicylic acid box."
+    }
+    // else if(f==34){
+    //     f=35
+    //     reading.innerText="00.00"
+        
+    // }
+}
+
+
+
+function moveBoxCap(){
+    if(f==6){
+        
+        boxcap.style.top="55%"
+        setTimeout(function(){
+            boxcap.style.left="40%"
+            setTimeout(function(){
+                boxcap.style.top="75%"
+                text.innerText="Click on the spatula."
+                f=7
+                
+            },1000)
+        },1000)
+    }
+    else if(f==8){
+        f=9
+        boxcap.style.top="55%"
+        setTimeout(function(){
+            boxcap.style.left=""
+            setTimeout(function(){
+                boxcap.style.top=""
+                f=10
+                text.innerText="Click on the petri dish and pour the salicylic acid into the volumetric flask."
+                // ins.innerText="Press NEXT button."
+                // startbutton.innerText="NEXT"
+                // startbutton.style.visibility="visible"
+            },1000)
+        },1000)
+    }
+}
+
+
+function spatula1(){
+    if(f==7){
+        f=8
+        spatula.style.top="50%"
+        spatula.style.rotate="0deg"
+        spatula.style.zIndex="100"
+        setTimeout(function(){
+            spatula.style.left="58%"
+            // spatula.style.top="65%"
+            spatula.style.zIndex="0"
+            setTimeout(function(){
+                spatula.style.top="57%"
+                spatula.style.rotate="-20deg"
+                // spatula.style.left="31%"
+                setTimeout(function(){
+                    spatula.style.top="37.5%"
+                    spatula.style.rotate="0deg"
+                    spatula.style.left="25%"
+                    sample1.style.top="46.5%"
+                    sample1.style.opacity="100%"
+                    sample1.style.left="24.8%"
+                    sample1.style.rotate="-25deg"
+                    spatula.style.rotate="-30deg"
+                    setTimeout(function(){
+                        spatula.style.top="56%"
+                        sample1.style.top="64.9%"
+                        setTimeout(function(){
+                            spatula.style.rotate="-20deg"
+                            // spatula.style.left="9.5%"
+                            // spatula.style.top="26%"
+                            sample1.style.top="70%"
+                            sample1.style.rotate="0deg"
+                            // powder.style.left="9.8%"
+                            setTimeout(function(){
+                                sample1.style.width="2.5%"
+                                
+                            },1000)
+                            setTimeout(function(){
+                                reading.innerText="45.80"
+                                
+                                setTimeout(function(){
+                                    spatula.style.top="50%"
+                                    spatula.style.rotate=""
+                                    
+                    // 2 time spatula move.................
+                                     setTimeout(function(){
+                                         spatula.style.top="50%"
+                                         spatula.style.rotate="0deg"
+                                           setTimeout(function(){
+                                             spatula.style.left="58%"
+                                             //spatula.style.top="65%"   
+                                                setTimeout(function(){
+                                                     spatula.style.top="57%"
+                                                     spatula.style.rotate="-20deg"
+                                                     //spatula.style.left="31%"
+                                                        setTimeout(function(){
+                                                            spatula.style.rotate="0deg"
+                                                            spatula.style.top="37.5%"
+                                                            spatula.style.left="25%"
+                                                            sample2.style.top="46.5%"
+                                                            sample2.style.opacity="100%"
+                                                            sample2.style.left="24.8%"
+                                                            sample2.style.rotate="-25deg"
+                                                            spatula.style.rotate="-30deg"
+                                                              setTimeout(function(){
+                                                                spatula.style.top="56%"
+                                                                sample2.style.top="64.9%"
+                                                                 setTimeout(function(){
+                                                                    spatula.style.rotate="-20deg"
+                                                                    // spatula.style.left="9.5%"
+                                                                    // spatula.style.top="26%"
+                                                                    sample2.style.top="70%"
+                                                                    sample2.style.rotate="0deg"
+                                                                        // powder.style.left="9.8%"
+                                                                       setTimeout(function(){
+                                                                         sample1.style.width="4%"
+                                
+                                                                        },1000)
+                                                                        setTimeout(function(){
+                                                                            reading.innerText="80.09"
+                                           // 3 time spatula move.................
+                                                                             setTimeout(function(){
+                                                                                spatula.style.top="50%"
+                                                                                spatula.style.rotate="0deg"
+                                                                                setTimeout(function(){
+                                                                                    spatula.style.left="58%"
+                                                                                    //spatula.style.top="65%"   
+                                                                                        setTimeout(function(){
+                                                                                            spatula.style.top="57%"
+                                                                                            spatula.style.rotate="-20deg"
+                                                                                            //spatula.style.left="31%"
+                                                                                                setTimeout(function(){
+                                                                                                    spatula.style.rotate="0deg"
+                                                                                                    spatula.style.top="37.5%"
+                                                                                                    spatula.style.left="25%"
+                                                                                                    sample3.style.top="46.5%"
+                                                                                                    sample3.style.opacity="100%"
+                                                                                                    sample3.style.left="24.8%"
+                                                                                                    sample3.style.rotate="-25deg"
+                                                                                                    spatula.style.rotate="-30deg"
+                                                                                                    setTimeout(function(){
+                                                                                                        spatula.style.top="56%"
+                                                                                                        sample3.style.top="64.9%"
+                                                                                                        setTimeout(function(){
+                                                                                                            spatula.style.rotate="-20deg"
+                                                                                                            // spatula.style.left="9.5%"
+                                                                                                            // spatula.style.top="26%"
+                                                                                                            sample3.style.top="70%"
+                                                                                                            sample3.style.rotate="0deg"
+                                                                                                             // powder.style.left="9.8%"
+                                                                                                            setTimeout(function(){
+                                                                                                                sample3.style.width="5%"
+                                                                                                                sample3.style.left="24%"
+                                                                                                                spatula.style.rotate=""
+                                                                                                                spatula.style.top="83%"
+                                                                                                                spatula.style.left="41%"
+                                                                                                                },1000)
+                                                                                                                setTimeout(function(){
+                                                                                                                    reading.innerText="100.00"
+                                                                                                                    setTimeout(function(){
+                                                                                                                    text.innerText="Click on the cap of the salicylic acid box and close the box."
+                                                                                                                    },500)
+                                                                                                                    },500)
+                                                                                                        },1000)
+                                                                                                    },1000)
+                                                                                                },1000)
+                                                                                        },1000)
+                                                                                },1000)
+                                                                            },1000)
+                                                                        },1000)
+                                                                },1000)
+                                                            },1000)
+                                                        },1000)
+                                                },1000)
+                                         },1000)
+                                     },1000)
+                                    setTimeout(function(){
+                                        f=8
+                                        
+                                    },1000)
+                                },1000)
+                            },1000)
+                        },1000)
+                    },1000)
+                },2000)
+            },1000)
+        },1000)
+    }
+}
+
+
+
+function petriplace(){
+    if(f==3){
+        f=4
+         
+        petriselector.style.top="40%"
+        setTimeout(function(){
+            petriselector.style.left="17%"
+            setTimeout(function(){
+                petriselector.style.top="59.5%"
+                petriselector.style.zIndex="100"
+                
+                setTimeout(function(){
+                    if(petriselector==petri){
+                        
+                        reading.innerText="22.06"
+                        text.innerText="Click on the Tare button."
+                        f=5
                     }
+                    else{
+                        f=7
+                        reading.innerText="00.00"
+                       
+
+                    }
+                },1000)
+            },1000)
+        },1000)
+    }
+
+    else if(f==10){
+        f=11
+        petriselector.style.top="40.8%"
+        sample1.style.top="52%"
+        sample2.style.top="52%"
+        sample3.style.top="52%"
+        reading.innerText="-22.06"
+        setTimeout(function(){
+            petriselector.style.left="59%"
+            sample1.style.left="65%"
+            sample2.style.left="65%"
+            sample3.style.left="65%"
+          
+            setTimeout(function(){
+                sample1.style.opacity="0"
+                sample2.style.opacity="0"
+                sample3.style.opacity="0"
+                petriselector.style.rotate="30deg"
+                
+                // sample2.style.top="50%"
+              
+                setTimeout(function(){
                     
-                    // Show completion message
-                    const instructionText = document.querySelector('.instruction-text');
-                    const completionMessages = {
-                        'en': 'Salicylic acid has been placed on the scale. Weight: 100.0 mg.',
-                        'hi': 'सैलिसिलिक एसिड को तराजू पर रखा गया है। वजन: 100.0 मिलीग्राम।'
-                    };
-                    instructionText.textContent = completionMessages[currentLanguage] || completionMessages['en'];
+                    sample1.style.rotate=""
+                    sample2.style.rotate=""
+                    sample3.style.rotate=""
+                    
+                    
+                    sample1.style.left="70%"
+                    sample2.style.left="70%"
+                    sample3.style.left="70%"
+                    sample1.style.top="85%"
+                    sample2.style.top="85%"
+                    sample3.style.top="85%"
+                    sample1.style.width="4%"
+                    sample2.style.width="3%"
+                    sample3.style.width="3%"
+                    setTimeout(function(){
+                    sample1.style.opacity="100"
+                    sample2.style.opacity="100"
+                    sample3.style.opacity="100"
+                    volumetricflasks.style.zIndex="100"
+                    setTimeout(function(){
+                        petriselector.style.rotate="0deg"
+                        petriselector.style.left=""
+                        petriselector.style.top=""
+                        setTimeout(function(){
+                            text.innerText="Click on the distilled water and add 100 ml of water into the volumetric flask."
+                        },1000) 
+                    f=12
+        // petriverify()  
+               },1000)   
+                },1000)
+                },1000)
+            },1000)
+        },1000)
+    }
+
+ }
+
+ function movebottel(){
+    if(f==12){
+        f=13
+        // 
+        distilled_water1.style.left="70%"
+        
+        distilled_water1.style.rotate="-30deg"
+        distilled_water1.style.top="40%"
+        setTimeout(function(){
+            waterfall1.style.opacity="100"
+                setTimeout(function(){
+                    standardAcid1.style.opacity="100"
+                    standardAcid1.style.bottom=""
+                    waterfall1.style.opacity="0"
+                    sample1.style.opacity="0"
+                    sample2.style.opacity="0"
+                    sample3.style.opacity="0"
+                        // incylinder.style.opacity="0"
+                        setTimeout(function(){
+                            distilled_water1.style.rotate="0deg"
+                            distilled_water1.style.left=""
+                            distilled_water1.style.bottom=""
+                             nextBtn.style.visibility="visible"
+                             text.innerText="Click on the Next button."
+                        f = 14
+                        
+             },1000)
+        },1000);
+    },1000);
+    }
+
+    else if(f==19){
+    f=20
+        distilled_water2.style.top="30%"
+        setTimeout(function(){
+            distilled_water2.style.left="65%"
+        },1000);
+            setTimeout(function(){
+                distilled_water2.style.rotate="-40deg"
+            },1000);
+            setTimeout(function(){
+                distilled_water2.style.left="65%"
+                distilled_water2.style.top="38%"
+            },1000);
+            setTimeout(function(){
+                    waterfall2.style.opacity="100"
+                        setTimeout(function(){
+                        colourlesssolution2.style.opacity="100"
+                        waterfall2.style.opacity="0"
+                        colourlesssolution1.style.opacity="0"
+                        // incylinder.style.opacity="0"
+                            setTimeout(function(){
+                            distilled_water2.style.rotate="0deg"
+                            distilled_water2.style.left=""
+                            distilled_water2.style.bottom=""
+                            nextBtn.style.visibility="visible"
+                            text.innerText="Click on the Next button."
+                            f=21
+                            },1000)
+                        },1000)
+                    },1000)
+            
+}
+    else if(f==27){
+    f=28
+        distilled_water3.style.top="6%"
+        setTimeout(function(){
+            distilled_water3.style.left="35%"
+        
+        setTimeout(function(){
+                distilled_water3.style.top="39%"
+                distilled_water3.style.rotate="-40deg"
+                setTimeout(function(){
+                        waterfall3.style.opacity="100"
+                        setTimeout(function(){
+                        wtrincylinder.style.opacity="100"
+                        wtrincylinder.style.height="63.7%"
+                        waterfall3.style.opacity="0"
+                          setTimeout(function(){
+                            distilled_water3.style.rotate="0deg"
+                            distilled_water3.style.left=""
+                            distilled_water3.style.bottom=""
+                            setTimeout(function(){
+                            text.innerText="Now, click on the measuring cylinder and transfer the water to the first test tube for mixing."
+                            },1000)
+                    },1000);
+                    },1000);
+                    },1000);
+            },1000);
+            },1000);
+    }
+    else if(f==29){
+    f=30
+        distilled_water3.style.top="6%"
+        setTimeout(function(){
+            distilled_water3.style.left="35%"
+        
+        setTimeout(function(){
+                distilled_water3.style.top="39%"
+                distilled_water3.style.rotate="-40deg"
+                setTimeout(function(){
+                        waterfall3.style.opacity="100"
+                        setTimeout(function(){
+                        wtrincylinder.style.opacity="100"
+                        wtrincylinder.style.height="62.5%"
+                         waterfall3.style.opacity="0"
+                          setTimeout(function(){
+                            distilled_water3.style.rotate="0deg"
+                            distilled_water3.style.left=""
+                            distilled_water3.style.bottom=""
+                            setTimeout(function(){
+                            text.innerText="Again click on the measuring cylinder and transfer the water to the second test tube for mixing."
+                            },1000)
+                    },1000);
+                    },1000);
+                    },1000);
+            },1000);
+            },1000);
+    }
+    else if(f==31){
+    f=32
+        distilled_water3.style.top="6%"
+        setTimeout(function(){
+            distilled_water3.style.left="35%"
+        
+        setTimeout(function(){
+                distilled_water3.style.top="39%"
+                distilled_water3.style.rotate="-40deg"
+                setTimeout(function(){
+                        waterfall3.style.opacity="100"
+                        setTimeout(function(){
+                        wtrincylinder.style.opacity="100"
+                        wtrincylinder.style.height="60.1%"
+                         waterfall3.style.opacity="0"
+                          setTimeout(function(){
+                            distilled_water3.style.rotate="0deg"
+                            distilled_water3.style.left=""
+                            distilled_water3.style.bottom=""
+                            setTimeout(function(){
+                            text.innerText="Again click on the measuring cylinder and transfer the water to the third test tube for mixing."
+                            },1000)
+                    },1000);
+                    },1000);
+                    },1000);
+            },1000);
+            },1000);
+    }
+    else if(f==33){
+    f=34
+        distilled_water3.style.top="6%"
+        setTimeout(function(){
+            distilled_water3.style.left="35%"
+        
+        setTimeout(function(){
+                distilled_water3.style.top="39%"
+                distilled_water3.style.rotate="-40deg"
+                setTimeout(function(){
+                        waterfall3.style.opacity="100"
+                        setTimeout(function(){
+                        wtrincylinder.style.opacity="100"
+                        wtrincylinder.style.height="59.3%"
+                         waterfall3.style.opacity="0"
+                          setTimeout(function(){
+                            distilled_water3.style.rotate="0deg"
+                            distilled_water3.style.left=""
+                            distilled_water3.style.bottom=""
+                            setTimeout(function(){
+                            text.innerText="Again click on the measuring cylinder and transfer the water to the fourth test tube for mixing."
+                            },1000)
+                    },1000);
+                    },1000);
+                    },1000);
+            },1000);
+            },1000);
+    }
+    else if(f==35){
+    f=36
+        distilled_water3.style.top="6%"
+        setTimeout(function(){
+            distilled_water3.style.left="35%"
+        
+        setTimeout(function(){
+                distilled_water3.style.top="39%"
+                distilled_water3.style.rotate="-40deg"
+                setTimeout(function(){
+                        waterfall3.style.opacity="100"
+                        setTimeout(function(){
+                        wtrincylinder.style.opacity="100"
+                        wtrincylinder.style.height="58%"
+                         waterfall3.style.opacity="0"
+                          setTimeout(function(){
+                            distilled_water3.style.rotate="0deg"
+                            distilled_water3.style.left=""
+                            distilled_water3.style.bottom=""
+                            setTimeout(function(){
+                            text.innerText="Again click on the measuring cylinder and transfer the water to the last test tube for mixing."
+                            
+                            setTimeout(function(){
+                            nextBtn.style.visibility="visible"
+                            text.innerText="Click on Next button." 
+                            },1000)
+                            },1000)
+                    },1000);
+                    },1000);
+                    },1000);
+            },1000);
+            },1000);
+    }
+}
+
+
+
+function clickNext() {
+//   first time click next
+  if (f === 14) {
+    f = 15;
+    stp1.style.display = "none"
+    nextBtn.style.visibility="hidden"
+    stp2.style.display = "block"
+    hclName.style.opacity="100"
+    measuringcylinderName.style.opacity="100"
+    conicalFlaskName.style.opacity="100"
+    DistilledwaterName2.style.opacity="100"
+    text.innerText="Click on the cap of the concentrated HCl bottle and open the bottle."
+    f = 16
+  }
+// second time click next
+ else if (f === 21) {
+    f = 22;
+    stp2.style.display = "none"
+    nextBtn.style.visibility="hidden"
+    stp3.style.display = "block"
+    testtubeName.style.opacity="100"
+    measuringcylinderName3.style.opacity="100"
+    standartSol3.style.opacity="100"
+    DistilledwaterName3.style.opacity="100"
+    pipette3.style.opacity="100"
+    text.innerText="Click on the pipette and add 0.02 mg/mL standard salicylic acid solution to the first test tube."
+}
+// third time click next
+ else if (f === 37) {
+    f = 38;
+    stp3.style.display = "none"
+    nextBtn.style.visibility="hidden"
+    stp5.style.display = "block"
+    text.innerText="This is the table and graph of the experiment. "
+    table.style.opacity="100"
+    graph.style.opactiy="100"
+    // hclName.style.opacity="100"
+    // measuringcylinderName.style.opacity="100"
+    // conicalFlaskName.style.opacity="100"
+    // DistilledwaterName2.style.opacity="100"
+}
+}
+window.onload = function () {
+  document.getElementById("nextBtn").addEventListener("click", clickNext);
+};
+
+//  --------------------------------- STEP 2 ---------------------------------------------------------------------------------
+
+
+let container = document.querySelector("#hclContainer")
+let cylinder = document.querySelector("#cylinder")
+let containercap = document.querySelector("#hclCap")
+let solution = document.querySelector("#hclsolution")
+
+function movecap(){
+    if(f==16){
+        f=17
+        hclName.style.opacity="0"
+        measuringcylinderName.style.opacity="0"
+        conicalFlaskName.style.opacity="0"
+        DistilledwaterName2.style.opacity="0"
+         hclCap.style.top="50%"
+            setTimeout(function(){
+           hclCap.style.left="40%"
+            },1000)
+            setTimeout(function(){
+            hclCap.style.top="80%"
+            },1000)
+            setTimeout(function(){
+            text.innerText="Click on the concentrated HCl and pour 9.8 ml of concentrated HCl into the measuring cylinder"
+            },1000)
+    }
+
+}
+function movecontainer(){
+     if(f==17){
+        f=18
+    hclmaincontainer.style.bottom="30%"
+        setTimeout(function(){
+            hclmaincontainer.style.left="38%"
+        },1000)
+            setTimeout(function(){
+            hclmaincontainer.style.rotate="60deg"
+                setTimeout(function(){
+                solfal1.style.opacity="100"
+                    setTimeout(function(){
+                    incylinder.style.opacity="100"
+                    solfal1.style.opacity="0"
+                    hclsolution.style.height="50%"
+                        setTimeout(function(){
+                        hclmaincontainer.style.rotate="0deg"
+                        hclmaincontainer.style.left=""
+                        hclmaincontainer.style.bottom=""
+                            setTimeout(function(){
+                            hclCap.style.top=""
+                            hclCap.style.left=""
+                            hclCap.style.top=""
+                                setTimeout(function(){
+                                text.innerText="Click on the measuring cylinder and pour 9.8 ml of concentrated HCl into the conical flask."
+                        },1000)
+                        },1000)
+                        },1000)
+                    },1000)
+                
+                },1000)
+        },1000)
+    }
+}
+
+function movecylinder(){
+     if(f==18){
+        f=19
+        maincylinder.style.bottom="35%"
+            setTimeout(function(){
+            maincylinder.style.left="58%"
+                setTimeout(function(){
+                maincylinder.style.rotate="60deg"
+                    setTimeout(function(){
+                    solfal2.style.opacity="100"
+                        setTimeout(function(){
+                        colourlesssolution1.style.opacity="100"
+                        solfal2.style.opacity="0"
+                        incylinder.style.opacity="0"
+                        
+                            setTimeout(function(){
+                            maincylinder.style.rotate="0deg"
+                            maincylinder.style.left=""
+                            maincylinder.style.bottom=""
+                                setTimeout(function(){
+                            text.innerText="Click on the distilled water and mix 100 ml of water with the concentrated HCl in the conical flask."
+                            },1000)
+                            },1000)
+                        },1000)
+                    },1000)
+                },1000)
+        },1000)
+    }
+    else if (f==28) {
+    f = 29;
+     mainwtrcylinder.style.bottom="40%"
+     setTimeout(function(){
+        mainwtrcylinder.style.left="63%"
+        setTimeout(function(){
+                mainwtrcylinder.style.rotate="60deg"
+                mainwtrcylinder.style.bottom="30%"
+                setTimeout(function(){
+                    wtrfalltube1.style.opacity="100"
+                    setTimeout(function(){
+                        soltube1.style.opacity="20"
+                        wtrfalltube1.style.opacity="0"
+                        wtrincylinder.style.opacity="0"
+                        tubesol1.style.opacity="0"
+                        setTimeout(function(){
+                            mainwtrcylinder.style.rotate="0deg"
+                            mainwtrcylinder.style.left=""
+                            mainwtrcylinder.style.bottom=""
+                            },1000)
+                            setTimeout(function(){
+                            text.innerText="Click on the again distilled water and add 96 mL of water to the measuring cylinder."
+                            },1000)
+        },1000)
+        },1000)
+        },1000)
+        },1000)
+}
+    else if (f==30) {
+    f = 31;
+     mainwtrcylinder.style.bottom="40%"
+     setTimeout(function(){
+        mainwtrcylinder.style.left="66.6%"
+        setTimeout(function(){
+                mainwtrcylinder.style.rotate="60deg"
+                mainwtrcylinder.style.bottom="30%"
+                setTimeout(function(){
+                    wtrfalltube2.style.opacity="100"
+                    setTimeout(function(){
+                        soltube2.style.opacity="40"
+                        wtrfalltube2.style.opacity="0"
+                        wtrincylinder.style.opacity="0"
+                        tubesol2.style.opacity="0"
+                        setTimeout(function(){
+                            mainwtrcylinder.style.rotate="0deg"
+                            mainwtrcylinder.style.left=""
+                            mainwtrcylinder.style.bottom=""
+                            setTimeout(function(){
+                            text.innerText="Click on the again distilled water and add 94 mL of water to the measuring cylinder."
+                            },1000)
+                            },1000)
+        },1000)
+        },1000)
+        },1000)
+        },1000)
+}
+    else if (f === 32) {
+    f = 33;
+     mainwtrcylinder.style.bottom="40%"
+     setTimeout(function(){
+        mainwtrcylinder.style.left="70.1%"
+        setTimeout(function(){
+                mainwtrcylinder.style.rotate="60deg"
+                mainwtrcylinder.style.bottom="30%"
+                setTimeout(function(){
+                    wtrfalltube3.style.opacity="100"
+                    setTimeout(function(){
+                        soltube3.style.opacity="60"
+                        wtrfalltube3.style.opacity="0"
+                        wtrincylinder.style.opacity="0"
+                        tubesol3.style.opacity="0"
+                        setTimeout(function(){
+                            mainwtrcylinder.style.rotate="0deg"
+                            mainwtrcylinder.style.left=""
+                            mainwtrcylinder.style.bottom=""
+                            setTimeout(function(){
+                            text.innerText="Click on the again distilled water and add 92 mL of water to the measuring cylinder."
+                            },1000)
+                            },1000)
+        },1000)
+        },1000)
+        },1000)
+        },1000)
+}
+    else if (f === 34) {
+    f = 35;
+     mainwtrcylinder.style.bottom="40%"
+     setTimeout(function(){
+        mainwtrcylinder.style.left="73.6%"
+        setTimeout(function(){
+                mainwtrcylinder.style.rotate="60deg"
+                mainwtrcylinder.style.bottom="30%"
+                setTimeout(function(){
+                    wtrfalltube4.style.opacity="100"
+                    setTimeout(function(){
+                        soltube4.style.opacity="80"
+                        wtrfalltube4.style.opacity="0"
+                        wtrincylinder.style.opacity="0"
+                        tubesol4.style.opacity="0"
+                        setTimeout(function(){
+                            mainwtrcylinder.style.rotate="0deg"
+                            mainwtrcylinder.style.left=""
+                            mainwtrcylinder.style.bottom=""
+                            setTimeout(function(){
+                            text.innerText="Click on the again distilled water and add 90 mL of water to the measuring cylinder."
+                            },1000)
+                            },1000)
+        },1000)
+        },1000)
+        },1000)
+        },1000)
+}
+    else if (f === 36) {
+    f = 37;
+     mainwtrcylinder.style.bottom="40%"
+     setTimeout(function(){
+        mainwtrcylinder.style.left="77.1%"
+        setTimeout(function(){
+                mainwtrcylinder.style.rotate="60deg"
+                mainwtrcylinder.style.bottom="30%"
+                setTimeout(function(){
+                    wtrfalltube5.style.opacity="100"
+                    setTimeout(function(){
+                        soltube5.style.opacity="100"
+                        wtrfalltube5.style.opacity="0"
+                        wtrincylinder.style.opacity="0"
+                        tubesol5.style.opacity="0"
+                        setTimeout(function(){
+                            mainwtrcylinder.style.rotate="0deg"
+                            mainwtrcylinder.style.left=""
+                            mainwtrcylinder.style.bottom=""
+                            },1000)
+        },1000)
+        },1000)
+        },1000)
+        },1000)
+}
+
+}
+
+//  --------------------------------- STEP 3 ---------------------------------------------------------------------------------
+
+function movepipette(){
+     if(f==22){
+        f=23
+        testtubeName.style.opacity="0"
+        measuringcylinderName3.style.opacity="0"
+        standartSol3.style.opacity="0"
+        DistilledwaterName3.style.opacity="0"
+        pipette3.style.opacity="0"
+            pipette.style.bottom="50%"
+                setTimeout(function(){
+                pipette.style.left="45%"
+                },1000)
+                    setTimeout(function(){
+                    pipette.style.rotate="0deg"
+                    pipette.style.bottom="17.5%"
+                    pipette.style.height="40%"
+                        setTimeout(function(){
+                        pipsol1.style.opacity="100"
+                        solution3.style.height="17%"
+                            setTimeout(function(){
+                            pipette.style.bottom="40%"
+                            pipsol1.style.bottom="41.3%"
+                            },1000)
+                                setTimeout(function(){
+                                pipette.style.left="67.2%"
+                                pipsol1.style.left="69.4%"
+                                    setTimeout(function(){
+                                    pipette.style.bottom="17.9%"
+                                    pipsol1.style.bottom="19.2%"
+                                        setTimeout(function(){
+                                        solfall1.style.opacity="100"
+                                        pipsol1.style.opacity="0"
+                                       
+                                       
+                                            setTimeout(function(){
+                                            tubesol1.style.opacity="100"
+                                            solfall1.style.opacity="0"
+                                            pipette.style.bottom="40%"
+                                            
+                                                setTimeout(function(){
+                                                pipette.style.left=""
+                                                pipette.style.height="35%"
+                                                pipette.style.bottom="0.5%"
+                                                pipette.style.rotate=""
+                                                setTimeout(function(){
+                                                text.innerText="Click on the pipette again and add 0.04 mg/mL standard salicylic acid solution to the second test tube."
+                                                },1000)
+                                                },1000)
+                                            },1000)
+                                        },1000)
+                                    },1000)
+                                },1000)
+                              
+            
+                        },1000)
+                    },1000)
+    }
+   else if (f === 23) {
+    f = 24;
+             pipette.style.bottom="50%"
+                setTimeout(function(){
+                pipette.style.left="45%"
+                },1000)
+                    setTimeout(function(){
+                    pipette.style.rotate="0deg"
+                    pipette.style.bottom="17%"
+                    pipette.style.height="40%"
+                        setTimeout(function(){
+                        pipsol2.style.opacity="100"
+                        solution3.style.height="17%"
+                            setTimeout(function(){
+                            pipette.style.bottom="40%"
+                            pipsol2.style.bottom="43%"
+                            },1000)
+                                setTimeout(function(){
+                                pipette.style.left="70.9%"
+                                pipsol2.style.left="73.2%"
+                                    setTimeout(function(){
+                                    pipette.style.bottom="17.9%"
+                                    pipsol2.style.bottom="20%"
+                                        setTimeout(function(){
+                                        solfall2.style.opacity="100"
+                                        pipsol2.style.opacity="0"
+                                       
+                                       
+                                            setTimeout(function(){
+                                            tubesol2.style.opacity="100"
+                                            solfall2.style.opacity="0"
+                                            pipette.style.bottom="40%"
+                                            
+                                                setTimeout(function(){
+                                                pipette.style.left=""
+                                                pipette.style.height="35%"
+                                                pipette.style.bottom="0.5%"
+                                                pipette.style.rotate=""
+                                                setTimeout(function(){
+                                                text.innerText="Click on the pipette again and add 0.06 mg/mL standard salicylic acid solution to the third test tube."
+                                                },1000)
+                                                },1000)
+                                            },1000)
+                                        },1000)
+                                    },1000)
+                                },1000)
+                              
+            
+                        },1000)
+                    },1000)
+ }
+
+   else if (f === 24) {
+    f = 25;
+            pipette.style.bottom="50%"
+                setTimeout(function(){
+                pipette.style.left="45%"
+                },1000)
+                    setTimeout(function(){
+                    pipette.style.rotate="0deg"
+                    pipette.style.bottom="17%"
+                    pipette.style.height="40%"
+                        setTimeout(function(){
+                        pipsol3.style.opacity="100"
+                        solution3.style.height="16.5%"
+                            setTimeout(function(){
+                            pipette.style.bottom="40%"
+                            pipsol3.style.bottom="44%"
+                            },1000)
+                                setTimeout(function(){
+                                pipette.style.left="74.5%"
+                                pipsol3.style.left="76.75%"
+                                    setTimeout(function(){
+                                    pipette.style.bottom="17.9%"
+                                    pipsol3.style.bottom="21.6%"
+                                        setTimeout(function(){
+                                        solfall3.style.opacity="100"
+                                        pipsol3.style.opacity="0"
+                                       
+                                       
+                                            setTimeout(function(){
+                                            tubesol3.style.opacity="100"
+                                            solfall3.style.opacity="0"
+                                            pipette.style.bottom="40%"
+                                            
+                                                setTimeout(function(){
+                                                pipette.style.left=""
+                                                pipette.style.height="35%"
+                                                pipette.style.bottom="0.5%"
+                                                pipette.style.rotate=""
+                                                setTimeout(function(){
+                                                text.innerText="Click on the pipette again and add 0.08 mg/mL standard salicylic acid solution to the fourth test tube."
+                                                },1000)
+                                                },1000)
+                                            },1000)
+                                        },1000)
+                                    },1000)
+                                },1000)
+                              
+            
+                        },1000)
+                    },1000)
+ }
+
+
+   else if (f === 25) {
+    f = 26;
+            pipette.style.bottom="50%"
+                setTimeout(function(){
+                pipette.style.left="45%"
+                },1000)
+                    setTimeout(function(){
+                    pipette.style.rotate="0deg"
+                    pipette.style.bottom="17%"
+                    pipette.style.height="40%"
+                        setTimeout(function(){
+                        pipsol4.style.opacity="100"
+                        solution3.style.height="15.5%"
+                            setTimeout(function(){
+                            pipette.style.bottom="40%"
+                            pipsol4.style.bottom="43%"
+                            },1000)
+                                setTimeout(function(){
+                                pipette.style.left="78.1%"
+                                pipsol4.style.left="80.5%"
+                                    setTimeout(function(){
+                                    pipette.style.bottom="17.9%"
+                                    pipsol4.style.bottom="20%"
+                                        setTimeout(function(){
+                                        solfall4.style.opacity="100"
+                                        pipsol4.style.opacity="0"
+                                       
+                                       
+                                            setTimeout(function(){
+                                            tubesol4.style.opacity="100"
+                                            solfall4.style.opacity="0"
+                                            pipette.style.bottom="40%"
+                                            
+                                                setTimeout(function(){
+                                                pipette.style.left=""
+                                                pipette.style.height="35%"
+                                                pipette.style.bottom="0.5%"
+                                                pipette.style.rotate=""
+                                                setTimeout(function(){
+                                                text.innerText="Click on the pipette again and add 0.10 mg/mL standard salicylic acid solution to the fifth test tube."
+                                                },1000)
+                                                },1000)
+                                            },1000)
+                                        },1000)
+                                    },1000)
+                                },1000)
+                              
+            
+                        },1000)
+                    },1000)
+ }
+
+   else if (f === 26) {
+    f = 27;
+            pipette.style.bottom="50%"
+                setTimeout(function(){
+                pipette.style.left="45%"
+                },1000)
+                    setTimeout(function(){
+                    pipette.style.rotate="0deg"
+                    pipette.style.bottom="15%"
+                    pipette.style.height="40%"
+                        setTimeout(function(){
+                        pipsol5.style.opacity="100"
+                        solution3.style.height="14.5%"
+                            setTimeout(function(){
+                            pipette.style.bottom="40.3%"
+                            pipsol5.style.bottom="42.7%"
+                            },1000)
+                                setTimeout(function(){
+                                pipette.style.left="81.6%"
+                                pipsol5.style.left="83.9%"
+                                    setTimeout(function(){
+                                    pipette.style.bottom="17.9%"
+                                    pipsol5.style.bottom="20%"
+                                        setTimeout(function(){
+                                        solfall5.style.opacity="100"
+                                        pipsol5.style.opacity="0"
+                                       
+                                       
+                                            setTimeout(function(){
+                                            tubesol5.style.opacity="100"
+                                            solfall5.style.opacity="0"
+                                            pipette.style.bottom="40%"
+                                            
+                                                setTimeout(function(){
+                                                pipette.style.left=""
+                                                pipette.style.height="35%"
+                                                pipette.style.bottom="0.5%"
+                                                pipette.style.rotate=""
+                                                setTimeout(function(){
+                                                text.innerText="Click on the distilled water and add 98 mL of water to the measuring cylinder."
+                                                },1000)
+                                                },1000)
+                                            },1000)
+                                        },1000)
+                                    },1000)
+                                },1000)
+                              
+            
+                        },1000)
+                    },1000)
                 }
-            });
-            
-            // STEP 1: First lift up (move upward)
-            tl.to(salicylicAcidElement, {
-                duration: 1.0,  // Duration in seconds
-                top: "+=100px",    // Move up by 100px
-                scale: 0.9,     // Slightly reduce size during lift
-                ease: "power2.out",
-                transformOrigin: "center bottom"
-            })
-            
-            // STEP 2: Then move right (to the weight machine)
-            .to(salicylicAcidElement, {
-                duration: 1.2,
-                left: endLeft + "%",  // Move to target position
-                bottom: endBottom + "%", // Move to target position
-                scale: 0.8,
-                ease: "power3.inOut",
-                transformOrigin: "center bottom"
-            })
-            
-            // STEP 3: Settle down with a slight bounce
-            .to(salicylicAcidElement, {
-                duration: 0.4,
-                y: "+=10px",
-                scale: 0.75,
-                ease: "elastic.out(1, 0.3)",
-                transformOrigin: "center bottom"
-            });
-            
-            // Add subtle rotation during movement for realism
-            tl.to(salicylicAcidElement, {
-                rotation: -5,
-                duration: 0.4,
-                ease: "power1.inOut"
-            }, 0.3)
-            .to(salicylicAcidElement, {
-                rotation: 3,
-                duration: 0.5,
-                ease: "power1.inOut"
-            }, 1.0)
-            .to(salicylicAcidElement, {
-                rotation: 0,
-                duration: 0.4,
-                ease: "power1.out"
-            }, 1.8);
-        } else {
-            console.log("Acid already on scale");
-        }
-    }
-
-    // Function to animate the distilled water bottle when clicked
-    function distilledWater() {
-    const distilledWaterElement = document.querySelector('.distilled-water');
-
-    // Only proceed if the element exists
-    if (distilledWaterElement) {
-        // Create a GSAP timeline for the animation
-        const tl = gsap.timeline({
-            onComplete: function() {
-                // After the animation completes, animate water drops falling
-                animateWaterDrops();
             }
-        });
 
-        // Add animations to the timeline
-        tl.to(distilledWaterElement, {
-            duration: 0.5,  // Duration in seconds
-            y: "-550px",     // Lift up a little
-            x: "550px",      // Shift to the right
-            ease: "power2.out"  // Smooth acceleration
-        })
-        .to(distilledWaterElement, {
-            duration: 0.8,   // Duration for rotation
-            rotation: -60,    // Rotate 60 degrees to the left
-            transformOrigin: "bottom center", // Rotate from bottom center
-            ease: "power2.inOut"  // Smooth acceleration and deceleration
-        })
-        .to(distilledWaterElement, {
-            duration: 1.5,   // Hold this position longer for pouring
-            scale: 1,        // Maintain scale
-            ease: "none"     // No easing
-        })
-        .to(distilledWaterElement, {
-            duration: 0.8,   // Duration to return to original position
-            y: "0",          // Return to original vertical position
-            x: "0",          // Return to original horizontal position
-            rotation: 0,     // Return to original rotation
-            ease: "power2.inOut"  // Smooth acceleration and deceleration
-        });
-    }
-    }
+            
+//  --------------------------------- STEP 4 ---------------------------------------------------------------------------------
+//  f=38
+// function movecuvette(){
+//     if(f==1){
+//         f=2;
+         
+//        stp4_tubeclick_1.style.top="30%"
+//        setTimeout(function(){
+//        stp4_tubeclick_1.style.left="44.2%"
+//        stp4_tubeclick_1.style.top="43%"
+//         setTimeout(function(){
+//             stp4_tubeclick_1.style.rotate="60deg"
+//             setTimeout(function(){
+//             stp4_solfal.style.opacity="100"
+//             setTimeout(function(){
+//             cuve_sol.style.opacity="100"
+//             stp4_soltube1.style.height="60%"
+//             stp4_solfal.style.opacity="0"
+//             stp4_tubeclick_1.style.rotate=""
+//             stp4_tubeclick_1.style.left=""
+//             setTimeout(function(){
+//             stp4_tubeclick_1.style.top=""
+//                 setTimeout(function(){
+//                     text.innerText="click on pipette"
+//                 },1000)
 
-    // Function to animate water drops falling from the bottle
-    function animateWaterDrops() {
-    const bottle = document.querySelector('.distilled-water');
-    const bottleRect = bottle.getBoundingClientRect();
+//         },1000)
+//         },1000)
+//         },1000)
+//         },1000)
+        
+    
+//        },1000)
+       
+//     }
+// }
 
-    // Calculate the position of the nib when bottle is tilted
-    const nibX = bottleRect.left + bottleRect.width * 0.4;
-    const nibY = bottleRect.top + bottleRect.height * 0.4;
-
-    // Create and animate multiple drops
-    for (let i = 0; i < 5; i++) {
-        setTimeout(() => {
-            createWaterDrop(nibX, nibY);
-        }, i * 300); // Stagger the drops
-    }
-
-    // After drops finish, call the original water handling function
-    setTimeout(() => {
-        handleDistilledWaterClick();
-    }, 1800); // Delay to ensure bottle animation completes first
-    }
-
-    // Function to create a single water drop
-    function createWaterDrop(x, y) {
-    // Create a new drop element
-    const drop = document.createElement('div');
-    drop.className = 'water-drop';
-
-    // Position the drop at the nib of the bottle
-    drop.style.left = `${x}px`;
-    drop.style.top = `${y}px`;
-
-    // Add the drop to the document
-    document.body.appendChild(drop);
-
-    // Make the drop visible and start animation
-    setTimeout(() => {
-        drop.classList.add('falling');
-
-        // Remove the drop after animation completes
-        setTimeout(() => {
-            document.body.removeChild(drop);
-        }, 1500);
-    }, 10);
-    }
-
-    // Add event delegation to handle clicks on measuring cylinder even if it's added later
-    document.body.addEventListener('click', function(event) {
-    if (event.target.matches('.measuring-cylinder')) {
-        const cylinder = event.target;
-
-        // Add the animation class
-        cylinder.classList.add('animating');
-
-        // Remove the animation class after it completes
-        setTimeout(() => {
-            cylinder.classList.remove('animating');
-        }, 2100); // Match the animation duration
-
-        console.log('Measuring cylinder clicked, animation applied');
-    }
-    });
-
-    // Also define the function for onclick attribute
-    window.measuringCylinder = function() {
-    const cylinder = document.querySelector('.measuring-cylinder');
-    if (cylinder) {
-        cylinder.classList.add('animating');
-        setTimeout(() => {
-            cylinder.classList.remove('animating');
-        }, 2100);
-        console.log('measuringCylinder function called');
-    } else {
-        console.log('Measuring cylinder element not found');
-    }
-    };
-
-    // Make functions globally accessible
-    window.handleSalicylicAcidClick = handleSalicylicAcidClick;
-    window.distilledWater = distilledWater;
+// }
