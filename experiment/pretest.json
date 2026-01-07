@@ -2,35 +2,86 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+      "question": "The accelerated stability study of aspirin mainly helps in determining:",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "Solubility of aspirin",
+        "b": "Color change of aspirin",
+        "c": "Degradation kinetics and shelf life",
+        "d": "Compressibility of aspirin powder"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Explanation",
+        "b": "Explanation",
+        "c": "Explanation",
+        "d": "Explanation"
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+       {
+      "question": "The hydrolysis of aspirin produces:",
+      "answers": {
+        "a": "Salicylic acid and acetic acid",
+        "b": "Benzoic acid and ethanol",
+        "c": "Phenol and acetic acid",
+        "d": "Acetone and carbon dioxide"
+      },
+      "explanations": {
+        "a": "Explanation",
+        "b": "Explanation",
+        "c": "Explanation",
+        "d": "Explanation"
       },
       "correctAnswer": "a",
       "difficulty": "beginner"
     },
-    {
-      "question": "This is a Sample Question 2?",
+        {
+      "question": "The reaction between ferric nitrate and salicylic acid forms a complex that shows maximum absorbance at:",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "450–460 nm",
+        "b": "500–510 nm",
+        "c": "540–547 nm",
+        "d": "600–610 nm"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Explanation",
+        "b": "Explanation",
+        "c": "Explanation",
+        "d": "Explanation"
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+        {
+      "question": "The degradation of aspirin follows which order of kinetics?",
+      "answers": {
+        "a": "Zero order",
+        "b": "First order",
+        "c": "Second order",
+        "d": "Pseudo-first order"
+      },
+      "explanations": {
+        "a": "Explanation",
+        "b": "Explanation",
+        "c": "Explanation",
+        "d": "Explanation"
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+        {
+      "question": "In the Arrhenius equation, the slope of the plot of log k vs. 1/T gives:",
+      "answers": {
+        "a": "Rate constant",
+        "b": "Frequency factor",
+        "c": "–Ea / 2.303R",
+        "d": "Activation energy directly"
+      },
+      "explanations": {
+        "a": "Explanation",
+        "b": "Explanation",
+        "c": "Explanation",
+        "d": "Explanation"
       },
       "correctAnswer": "c",
       "difficulty": "beginner"

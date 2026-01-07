@@ -1,1 +1,1 @@
-### Aim of the experiment
+To perform the accelerated stability studies

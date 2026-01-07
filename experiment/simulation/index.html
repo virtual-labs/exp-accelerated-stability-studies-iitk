@@ -1,13 +1,234 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<!-- Add CSS at the head of HTML file -->
-    <link rel="stylesheet" href="./css/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>virtual Lab</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-		<!-- Your code goes here-->
 
-	<!-- Add JS at the bottom of HTML file --> 
-        <script src="./js/main.js"></script>
+
+<body>
+  <div class="container">
+        <!-- top container -->
+        <div class="navbar">
+            <div class="instruction-text">
+              <h1 id="ins">Instruction:-&nbsp;</h1>
+              <h1 id="text">  Press start button to start the experiment .</h1>
+              
+            </div>
+            <!-- <div class="language-select">
+              <select>
+                    <option value="en">English</option>
+                    <option value="hi">हिंदी</option>
+                    <option value="bn">বাংলা</option>
+                    <option value="gu">ગુજરાતી</option>
+                    <option value="ml">മലയാളം</option>
+              </select>
+            </div> -->
+          </div>
+
+
+
+
+          <!-- main container -->
+          <div class="bg-img">
+<!----------------------------------- step 1 ---------------------------------------------------------------->
+
+            <div id="stp1">
+              <div id="stepnamecontainer">
+                <img id="machineName" class="namestep" src="weight machine name-01.png" alt="" >
+                <img id="petriName" class="namestep"src="pertidish name-01.png" alt="" >
+                <img id="spatulaName" class="namestep" src="spatula name-01.png" alt="" >
+                <img id="salicylicacidName" class="namestep" src="salicylic acid name-01.png" alt="" >
+                <img id="volumetricflaskName" class="namestep" src="volumetric flask name-01.png" alt="" >
+                <img id="DistilledwaterName1" class="namestep" src="Distilled water name-01.png" alt="" >
+              </div>
+              
+              <img id="machine" src="weight_machine.png" alt="">
+              <img id="spatula" onclick="spatula1()" src="spatulla.png" alt="">
+
+              <img id="box" src="salicylic_box-01.png" alt="">
+              <img id="boxcap" onclick="moveBoxCap()" src="chemical_powder_cap.png" alt="">
+              <button id="on" onclick="on1()">ON</button>
+              <button id="tare" onclick="tare1()">TARE</button>
+              <h3 id="reading">00.00</h3>
+              <img id="petri" onclick="movepetri()" src="petridish.png" alt="">
+              <img id="volumetricflasks" onclick="shakeflask()" src="new_volumetric_flask.png" alt="">
+              <img id="sample1" class="powder" src="Salicylic_acid_powder.png" alt="">
+              <img id="sample2" class="powder" src="Salicylic_acid_powder.png" alt="">
+              <img id="sample3" class="powder" src="Salicylic_acid_powder.png" alt="">
+              <img id="distilled_water1" class="step1" onclick="movebottel()" src="distilled_water-01.png" alt="">
+              <img id="waterfall1" class="fallwater" src="fallwater-01.png" alt="">
+              <img id="standardAcid1"  src="standard_sylicylic_acid.png" alt=""> 
+            </div> 
+<!----------------------------------- step 2 ---------------------------------------------------------------->
+              <div id="stp2">
+              <div id="stepnamecontainer">
+                <img src="concentrated hcl name-01.png" class="namestep" alt="" id="hclName">
+                <img src="measuring cylinder name-01.png" class="namestep" alt="" id="measuringcylinderName">
+                <img src="conical flask name-01.png" class="namestep" alt="" id="conicalFlaskName">
+                <img src="Distilled water name2-01.png" class="namestep" alt="" id="DistilledwaterName2">
+              </div>
+
+              
+              <img id="hclCap" onclick="movecap()" src="PH - buffer - solutions-cap.png" alt="">
+              <div id="hclmaincontainer">
+                <img id="hclContainer" onclick="movecontainer()" src="PH - buffer - solutions-8.png" alt="">
+                <img id="hclsolution" src="sol-yellow.png" alt="">
+              </div>
+              
+               <div id="maincylinder">
+                <img id="cylinder2" onclick="movecylinder()" src="measuring cylinder 100ml.png" alt="">
+                <img id="incylinder" src="sol-yellow.png" alt="">
+               </div>
+               <img  id="solfal1" src="solfal.png" alt="">
+              
+              <img  id="conicalFlask" onclick="moveconicalflask()" src="conical-flask - 100ml.png" alt=""> 
+              <img  id="solfal2" src="solfal.png" alt=""> 
+              <img id="colourlesssolution1" src="conical-flask - 100ml-solution colourless.png" alt="" >
+              <img id="colourlesssolution2" src="conical-flask - 100ml-solution colourless.png" alt="">
+              <img id="distilled_water2" class="step2" onclick="movebottel()" src="distilled_water-01.png" alt="">
+              <img id="waterfall2" class="fallwater" src="fallwater-01.png" alt="">
+              
+              
+            </div> 
+<!----------------------------------- step 3 ---------------------------------------------------------------->
+            <div id="stp3">
+
+               <div id="stepnamecontainer">
+                <img src="tubes name3-01.png" class="namestep" alt="" id="testtubeName">
+                <img src="Measuring Cylinder name 3-01.png" class="namestep" alt="" id="measuringcylinderName3">
+                <img src="Standard salicylic acid solution name 3-01.png" class="namestep" alt="" id="standartSol3">
+                <img src="Distilled water name3-01.png" class="namestep" alt="" id="DistilledwaterName3">
+                <img src="pipette name 3-01.png" class="namestep" alt="" id="pipette3">
+              </div> 
+
+              <img id="rack1" class="tuberack" src="tuberack1-01.png" alt="">
+              <img id="rack2" class="tuberack" src="tuberack2-01.png" alt="">
+              
+              <img id="tube1" class="testtubes" src="testtube1-01.png" alt="">
+              <img id="tubesol1" class="tubesolution" src="tubesol3-01.png" alt="">
+              <img  id="solfall1" class="tubesolfal" src="solfal.png" alt="">
+              
+              <img id="tube2" class="testtubes" src="testtube2-01.png" alt="">
+              <img id="tubesol2" class="tubesolution" src="tubesol3-01.png" alt="">
+              <img  id="solfall2" class="tubesolfal" src="solfal.png" alt="">
+
+              <img id="tube3" class="testtubes" src="testtube3-01.png" alt="">
+              <img id="tubesol3" class="tubesolution" src="tubesol3-01.png" alt="">
+              <img  id="solfall3" class="tubesolfal" src="solfal.png" alt="">
+
+              <img id="tube4" class="testtubes" src="testtube4-01.png" alt="">
+              <img id="tubesol4" class="tubesolution" src="tubesol3-01.png" alt="">
+              <img  id="solfall4" class="tubesolfal" src="solfal.png" alt="">
+              
+              <img id="tube5" class="testtubes" src="testtube5-01.png" alt="">
+              <img id="tubesol5" class="tubesolution" src="tubesol3-01.png" alt="">
+              <img  id="solfall5" class="tubesolfal" src="solfal.png" alt="">
+
+              
+                
+                  <img id="pipette" onclick="movepipette()" src="pipette-01.png" alt="">
+                  <img id="pipsol1" class="pipsolution" src="pipsol1-01.png" alt="">
+                  <img id="pipsol2" class="pipsolution" src="pipsol2-01.png" alt="">
+                  <img id="pipsol3" class="pipsolution" src="pipsol3-01.png" alt="">
+                  <img id="pipsol4" class="pipsolution" src="pipsol4-01.png" alt="">
+                  <img id="pipsol5" class="pipsolution" src="pipsol5-01.png" alt="">
+               
+              <img id="standardAcid3" onclick="movestandardAcid()" src="conical flask 3-01.png" alt="">
+              <img id="solution3" src="solution 3-01.png" alt="" >
+              
+              <div id="mainwtrcylinder">
+                <img id="cylinder3" onclick="movecylinder()" src="measuring cylinder 100ml.png" alt="">
+                <img id="wtrincylinder"  src="fallwater-01.png" alt="">
+
+              </div>
+
+              <img id="distilled_water3" class="step2" onclick="movebottel()" src="distilled_water-01.png" alt="">
+              <img id="waterfall3" class="fallwater" src="fallwater-01.png" alt="">
+
+              <img id="wtrfalltube1" class="fallwater3" src="fallwater-01.png" alt="">
+              <img id="soltube1" class="solTube" src="soltube-01.png" alt="" >
+
+              <img id="wtrfalltube2" class="fallwater3" src="fallwater-01.png" alt="">
+              <img id="soltube2" class="solTube" src="soltube-01.png" alt="" >
+
+              <img id="wtrfalltube3" class="fallwater3" src="fallwater-01.png" alt="">
+              <img id="soltube3" class="solTube" src="soltube-01.png" alt="" >
+
+              <img id="wtrfalltube4" class="fallwater3" src="fallwater-01.png" alt="">
+              <img id="soltube4" class="solTube" src="soltube-01.png" alt="" >
+
+              <img id="wtrfalltube5" class="fallwater3" src="fallwater-01.png" alt="">
+              <img id="soltube5" class="solTube" src="soltube-01.png" alt="" >
+
+            </div>  
+<!----------------------------------- step 4 ---------------------------------------------------------------->
+            <!-- <div id="stp4">
+              <div id="stepnamecontainer">
+
+              </div>
+              <img id="colmeter" class="colorimeter" src="colorimeter-01.png" alt="">
+              <img id="col_display" src="colori_display-01.png" alt="">
+              <img id="col_Button" onclick="on2()" src="colori_button-01.png" alt="">
+              <div class="colori_light">
+              <div id="orange_btn"></div>
+              <div id="red_btn"></div>
+              </div>
+              
+              <img id="stp4_rack1" class="tuberack" src="tuberack1-01.png" alt="">
+              <img id="stp4_rack2" class="tuberack" src="tuberack2-01.png" alt="">
+              <div id="stp4_tubeclick_1" > 
+                <img id="stp4_tube1"  class="stp4_testtubes" src="testtube1-01.png" alt="">
+                <img id="stp4_soltube1" onclick="movetesttube()" class="stp4_solTube" src="soltube-01.png" alt="" >
+              </div>
+              <img id="stp4_conc1" class="stp4_conc" src="conc1-01.png" alt="">
+              
+              <img id="stp4_tube2" onclick="testtube2()" class="stp4_testtubes" src="testtube2-01.png" alt="">
+              <img id="stp4_soltube2" class="stp4_solTube" src="soltube-01.png" alt="" >
+              <img id="stp4_conc2" class="stp4_conc" src="conc2-01.png" alt="">
+
+              <img id="stp4_tube3" onclick="testtube3()" class="stp4_testtubes" src="testtube3-01.png" alt="">
+              <img id="stp4_soltube3" class="stp4_solTube" src="soltube-01.png" alt="" >
+              <img id="stp4_conc3" class="stp4_conc" src="conc3-01.png" alt="">
+
+              <img id="stp4_tube4" onclick="testtube4()" class="stp4_testtubes" src="testtube4-01.png" alt="">
+              <img id="stp4_soltube4" class="stp4_solTube" src="soltube-01.png" alt="" >  
+              <img id="stp4_conc5" class="stp4_conc" src="conc5-01.png" alt="">
+
+              <img  id="stp4_conicalFlask"  src="conical-flask - 100ml.png" alt="">
+              <img id="stp4_colourlesssolution1" src="conical-flask - 100ml-solution colourless.png" alt="">
+
+              <img id="stp4_pipette" onclick="movepipettee()" src="pipette-01.png" alt="">
+              <img id="stp4_pipsol1" class="pipsolution" src="pipsol1-01.png" alt="">
+
+              <div id="cuvette" onclick="movecuvette()">
+                <img id="stp4_cuvette1"  src="show_cuvette.png" alt="">
+                <img id="stp4_cuvette2"  src="hidec_uvette.png" alt="">
+              </div>
+              <img id="stp4_solfal" src="solfal.png" alt="">
+              <img id="cuve_sol" src="cuvette_sol-01.png" alt="">
+              
+
+            </div>
+
+        </div>
+
+    </div> -->
+    <!----------------------------------- step 5 ---------------------------------------------------------------->
+    <div id="stp5">
+      <img id="table" src="table1.png" alt="">
+      <img id="graph" src="graph1-01.png" alt="">
+
+    </div>
+    
+    <!--------------------------------------- Bottom ---------------------------------------------------------------------->
+
+    <div class="navigation-buttons">
+        <button id="startBtn" onclick="startExperiment()">Start</button>
+        <button id="nextBtn" onclick="clickNext()">Next</button>
+      </div>
+   <script src="script.js"></script>
 </body>
 </html>
