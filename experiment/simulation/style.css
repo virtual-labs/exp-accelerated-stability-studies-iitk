@@ -9,7 +9,7 @@ html,body{
   height: 100%;
   display: block;
   position: relative;
-  overflow-y: auto;
+  overflow: auto;
 }
 
   /* Container is always visible */
