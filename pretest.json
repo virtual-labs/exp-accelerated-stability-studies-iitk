@@ -1,0 +1,65 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "The accelerated stability study of aspirin mainly helps in determining:",
+      "answers": {
+        "a": "Solubility of aspirin",
+        "b": "Color change of aspirin",
+        "c": "Degradation kinetics and shelf life",
+        "d": "Compressibility of aspirin powder"
+      },
+      
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+       {
+      "question": "The hydrolysis of aspirin produces:",
+      "answers": {
+        "a": "Salicylic acid and acetic acid",
+        "b": "Benzoic acid and ethanol",
+        "c": "Phenol and acetic acid",
+        "d": "Acetone and carbon dioxide"
+      },
+      
+      "correctAnswer": "a",
+      "difficulty": "beginner"
+    },
+        {
+      "question": "The reaction between ferric nitrate and salicylic acid forms a complex that shows maximum absorbance at:",
+      "answers": {
+        "a": "450–460 nm",
+        "b": "500–510 nm",
+        "c": "540–547 nm",
+        "d": "600–610 nm"
+      },
+      
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+        {
+      "question": "The degradation of aspirin follows which order of kinetics?",
+      "answers": {
+        "a": "Zero order",
+        "b": "First order",
+        "c": "Second order",
+        "d": "Pseudo-first order"
+      },
+      
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+        {
+      "question": "In the Arrhenius equation, the slope of the plot of log k vs. 1/T gives:",
+      "answers": {
+        "a": "Rate constant",
+        "b": "Frequency factor",
+        "c": "–Ea / 2.303R",
+        "d": "Activation energy directly"
+      },
+      
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    }
+  ]
+}

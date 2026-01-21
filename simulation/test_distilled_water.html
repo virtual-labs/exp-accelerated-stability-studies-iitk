@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Distilled Water Animation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        
+        .distilled-water {
+            background-image: url(distilled_water-01.png);
+            width: 200px;
+            height: 300px;
+            background-repeat: no-repeat;
+            background-size: contain;
+            transform-origin: bottom center;
+            cursor: pointer;
+        }
+        
+        button {
+            position: absolute;
+            bottom: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+    <div class="distilled-water" onclick="animateDistilledWater()"></div>
+    <button onclick="animateDistilledWater()">Test Animation</button>
+    
+    <script>
+        function animateDistilledWater() {
+            const distilledWaterElement = document.querySelector('.distilled-water');
+            
+            // Create a GSAP timeline for the animation
+            const tl = gsap.timeline();
+            
+            // Add animations to the timeline
+            tl.to(distilledWaterElement, {
+                duration: 0.5,  // Duration in seconds
+                y: "-50px",     // Lift up a little
+                ease: "power2.out"  // Smooth acceleration
+            })
+            .to(distilledWaterElement, {
+                duration: 0.8,   // Duration for rotation
+                rotation: -45,    // Rotate 45 degrees to the left
+                transformOrigin: "bottom center", // Rotate from bottom center
+                ease: "power2.inOut"  // Smooth acceleration and deceleration
+            })
+            .to(distilledWaterElement, {
+                duration: 0.3,   // Hold this position briefly
+                scale: 1,        // Maintain scale
+                ease: "none"     // No easing
+            })
+            .to(distilledWaterElement, {
+                duration: 0.8,   // Duration to return to original position
+                y: "0",          // Return to original vertical position
+                rotation: 0,     // Return to original rotation
+                ease: "power2.inOut"  // Smooth acceleration and deceleration
+            });
+        }
+    </script>
+</body>
+</html>
