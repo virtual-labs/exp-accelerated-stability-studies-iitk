@@ -30,7 +30,8 @@ function movepetri(){
 
 stp2.style.display = "none"
 stp3.style.display = "none"
-stp4.style.display = "none"
+//stp4.style.display = "none"
+stp5.style.display = "none"
 
 function startExperiment(){
     if(f==1){
@@ -319,6 +320,8 @@ function petriplace(){
                 sample1.style.opacity="0"
                 sample2.style.opacity="0"
                 sample3.style.opacity="0"
+                setTimeout(function(){
+                fallpowder.style.opacity="100"
                 petriselector.style.rotate="30deg"
                 
                 // sample2.style.top="50%"
@@ -339,6 +342,7 @@ function petriplace(){
                     sample1.style.width="4%"
                     sample2.style.width="3%"
                     sample3.style.width="3%"
+                    fallpowder.style.opacity="0"
                     setTimeout(function(){
                     sample1.style.opacity="100"
                     sample2.style.opacity="100"
@@ -357,6 +361,7 @@ function petriplace(){
                 },1000)
                 },1000)
             },1000)
+        },1000)
         },1000)
     }
 
@@ -405,7 +410,7 @@ function petriplace(){
             setTimeout(function(){
                 distilled_water2.style.left="65%"
                 distilled_water2.style.top="38%"
-            },1000);
+            
             setTimeout(function(){
                     waterfall2.style.opacity="100"
                         setTimeout(function(){
@@ -423,6 +428,7 @@ function petriplace(){
                             },1000)
                         },1000)
                     },1000)
+                },1000);
             
 }
     else if(f==27){
@@ -607,15 +613,25 @@ function clickNext() {
     stp3.style.display = "none"
     nextBtn.style.visibility="hidden"
     stp5.style.display = "block"
-    text.innerText="This is the table and graph of the experiment. "
+    text.innerText="The following table and graph show the experimental data."
     table.style.opacity="100"
-    graph.style.opactiy="100"
+    graph.style.opacity="100"
+    // nextBtn.style.visibility="visible"
+    // text.innerText="Click on the Next button."
+        
+
+    
     // hclName.style.opacity="100"
     // measuringcylinderName.style.opacity="100"
     // conicalFlaskName.style.opacity="100"
     // DistilledwaterName2.style.opacity="100"
 }
-}
+// else if(f===38){
+//     f=39;
+//     text.innerText="The experimental procedure has been successfully completed."
+//     stp5.style.display = "none"
+//     }
+ }
 window.onload = function () {
   document.getElementById("nextBtn").addEventListener("click", clickNext);
 };
@@ -1027,7 +1043,7 @@ function movepipette(){
                     pipette.style.height="40%"
                         setTimeout(function(){
                         pipsol4.style.opacity="100"
-                        solution3.style.height="15.5%"
+                        // solution3.style.height="15.5%"
                             setTimeout(function(){
                             pipette.style.bottom="40%"
                             pipsol4.style.bottom="43%"
@@ -1079,7 +1095,7 @@ function movepipette(){
                     pipette.style.height="40%"
                         setTimeout(function(){
                         pipsol5.style.opacity="100"
-                        solution3.style.height="14.5%"
+                        // solution3.style.height="14.5%"
                             setTimeout(function(){
                             pipette.style.bottom="40.3%"
                             pipsol5.style.bottom="42.7%"
